@@ -27,6 +27,6 @@ jobs:
         with:
           butler_key: ${{secrets.ITCHIO_TOKEN}}
           itch_user: anh625
-          itch_game: tower-defense-2d
+          itch_game: tower-defense-2d:html5
           version: ${{ github.ref_name }}
           files: "${{ steps.export.outputs.archive_directory }}/tower-defense-2d.zip"
