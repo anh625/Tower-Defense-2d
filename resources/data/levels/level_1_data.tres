@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bbmsu2j63f38x"]
+
+[ext_resource type="Script" uid="uid://df8jbem2nwe7l" path="res://scripts/custom_resources/level_data.gd" id="1_y1j1h"]
+[ext_resource type="Script" uid="uid://t327orvwtonh" path="res://scripts/custom_resources/wave_data.gd" id="2_pltm8"]
+[ext_resource type="Resource" uid="uid://bs1w8s2wdk4wd" path="res://resources/data/enemies/ufo_scout.tres" id="3_vmdb4"]
+[ext_resource type="Resource" uid="uid://bv162glh43yom" path="res://resources/data/enemies/ufo_speeder.tres" id="4_4opeq"]
+
+[sub_resource type="Resource" id="Resource_yq4qv"]
+script = ExtResource("2_pltm8")
+enemy_data = ExtResource("3_vmdb4")
+enemy_count = 2
+metadata/_custom_type_script = "uid://t327orvwtonh"
+
+[sub_resource type="Resource" id="Resource_ldw0e"]
+script = ExtResource("2_pltm8")
+enemy_data = ExtResource("4_4opeq")
+enemy_count = 2
+metadata/_custom_type_script = "uid://t327orvwtonh"
+
+[resource]
+script = ExtResource("1_y1j1h")
+level_name = "Sprint"
+wave_configuration = Array[ExtResource("2_pltm8")]([SubResource("Resource_yq4qv"), SubResource("Resource_ldw0e")])
+metadata/_custom_type_script = "uid://df8jbem2nwe7l"

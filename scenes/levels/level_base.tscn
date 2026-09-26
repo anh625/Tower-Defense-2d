@@ -1,0 +1,205 @@
+[gd_scene format=4 uid="uid://iufq0tqtrv3w"]
+
+[ext_resource type="Script" uid="uid://b1x13qbvdmq3b" path="res://scripts/levels/level.gd" id="1_3iy5o"]
+[ext_resource type="Texture2D" uid="uid://bjtitmowfwk6p" path="res://assets/Sprites/Landscape tiles/grass.png" id="1_l4xu8"]
+[ext_resource type="Resource" uid="uid://bbmsu2j63f38x" path="res://resources/data/levels/level_1_data.tres" id="2_1vve2"]
+[ext_resource type="Texture2D" uid="uid://dvi3mmi5r1l6o" path="res://assets/Sprites/Landscape tiles/buildingPlaceGrass.png" id="2_3iy5o"]
+[ext_resource type="PackedScene" uid="uid://cyfh7ibbxavoq" path="res://scenes/enemies/enemy_base.tscn" id="3_bbft6"]
+[ext_resource type="Texture2D" uid="uid://jjyyx1lmw1et" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(9).png" id="3_p3ew5"]
+[ext_resource type="Texture2D" uid="uid://b61bumy0mqdr6" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(11).png" id="4_x2afm"]
+[ext_resource type="Texture2D" uid="uid://v8y17p71mbte" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(12).png" id="5_1vve2"]
+[ext_resource type="Texture2D" uid="uid://d4ffwdtejxd4n" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(1).png" id="6_bbft6"]
+[ext_resource type="Texture2D" uid="uid://bww2yfkqke7qh" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(2).png" id="7_ioey5"]
+[ext_resource type="Texture2D" uid="uid://cillouqbostdy" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(3).png" id="8_4vntt"]
+[ext_resource type="Texture2D" uid="uid://4vcq7cpa0pxq" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(4).png" id="9_48lp4"]
+[ext_resource type="Texture2D" uid="uid://i2tbpwmtssjy" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(5).png" id="10_rb8uy"]
+[ext_resource type="Texture2D" uid="uid://8qdx2b731ngj" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(6).png" id="11_7wjjj"]
+[ext_resource type="Texture2D" uid="uid://bp1ioac0jr5y0" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(7).png" id="12_jqu2d"]
+[ext_resource type="Texture2D" uid="uid://vvwiqlrtyorg" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(8).png" id="13_ug1pp"]
+[ext_resource type="Texture2D" uid="uid://bosm2q6k53bac" path="res://assets/icons/setting.png" id="14_osutr"]
+[ext_resource type="Texture2D" uid="uid://bsmh02dkifepx" path="res://assets/icons/pause.png" id="15_bc8pi"]
+[ext_resource type="PackedScene" uid="uid://c4vx16jo68fg5" path="res://scenes/managers/grid_system.tscn" id="19_ioey5"]
+[ext_resource type="PackedScene" uid="uid://cfqgnbfsrksct" path="res://scenes/ui/tower_panel.tscn" id="20_4vntt"]
+[ext_resource type="Script" uid="uid://cg3cnquyjb2rs" path="res://scripts/ui/tower_panel.gd" id="21_48lp4"]
+[ext_resource type="Resource" uid="uid://cmm7a7mw2gpg7" path="res://resources/data/towers/tower_archer.tres" id="22_rb8uy"]
+[ext_resource type="Resource" uid="uid://vurgo4u3xucw" path="res://resources/data/towers/tower_wizard.tres" id="23_7wjjj"]
+[ext_resource type="Resource" uid="uid://b5leh120jgaum" path="res://resources/data/towers/tower_barrack.tres" id="24_jqu2d"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3lh42"]
+texture = ExtResource("1_l4xu8")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmhy7"]
+texture = ExtResource("2_3iy5o")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vva6n"]
+texture = ExtResource("3_p3ew5")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vm2d2"]
+texture = ExtResource("4_x2afm")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hws8l"]
+texture = ExtResource("5_1vve2")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_28n4u"]
+texture = ExtResource("6_bbft6")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1exhq"]
+texture = ExtResource("7_ioey5")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_scqv6"]
+texture = ExtResource("8_4vntt")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jvpbq"]
+texture = ExtResource("9_48lp4")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yivqu"]
+texture = ExtResource("10_rb8uy")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g76na"]
+texture = ExtResource("11_7wjjj")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_658j2"]
+texture = ExtResource("12_jqu2d")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7nyn5"]
+texture = ExtResource("13_ug1pp")
+texture_region_size = Vector2i(250, 235)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -44)
+
+[sub_resource type="TileSet" id="TileSet_5k3fp"]
+tile_shape = 1
+tile_size = Vector2i(250, 147)
+custom_data_layer_0/name = "buildable"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_3lh42")
+sources/1 = SubResource("TileSetAtlasSource_vmhy7")
+sources/2 = SubResource("TileSetAtlasSource_28n4u")
+sources/3 = SubResource("TileSetAtlasSource_1exhq")
+sources/4 = SubResource("TileSetAtlasSource_scqv6")
+sources/5 = SubResource("TileSetAtlasSource_jvpbq")
+sources/6 = SubResource("TileSetAtlasSource_yivqu")
+sources/7 = SubResource("TileSetAtlasSource_g76na")
+sources/8 = SubResource("TileSetAtlasSource_658j2")
+sources/9 = SubResource("TileSetAtlasSource_7nyn5")
+sources/10 = SubResource("TileSetAtlasSource_vva6n")
+sources/11 = SubResource("TileSetAtlasSource_vm2d2")
+sources/12 = SubResource("TileSetAtlasSource_hws8l")
+
+[sub_resource type="Curve2D" id="Curve2D_rmnd1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 192, 360, 0, 0, 0, 0, 496, 176, 0, 0, 0, 0, 696, 296, 0, 0, 0, 0, 448, 440, 0, 0, 0, 0, 448, 440, 0, 0, 0, 0, 648, 560, 0, 0, 0, 0, 920, 400)
+}
+point_count = 7
+
+[node name="LevelBase" type="Node2D" unique_id=646251334]
+script = ExtResource("1_3iy5o")
+level_data = ExtResource("2_1vve2")
+enemy_base_scene = ExtResource("3_bbft6")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1968430053]
+y_sort_enabled = true
+scale = Vector2(0.4, 0.4)
+tile_map_data = PackedByteArray("AAABAAoAAAAAAAAAAAABAAsAAwAAAAAAAAACAAwAAAAAAAAAAAACAA0AAAAAAAAAAAADAA4AAAAAAAAAAAADAA8AAAAAAAAAAAAEABAAAAAAAAAAAAAEABEAAAAAAAAAAAAFABIAAAAAAAAAAAACAAgAAAAAAAAAAAABAAkAAAAAAAAAAAADAAYAAAAAAAAAAAACAAcAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAMAAAAAAAAAAAAFABMAAAAAAAAAAAAGABQAAAAAAAAAAAAGABMAAAAAAAAAAAAHABIAAAAAAAAAAAAHABEAAAAAAAAAAAAIABAAAAAAAAAAAAAIAA8AAAAAAAAAAAAJAA4AAAAAAAAAAAAJAA0AAAAAAAAAAAAJAAwAAQAAAAAAAAAIAAsAAAAAAAAAAAAIAAoAAAAAAAAAAAAHAAkAAAAAAAAAAAAHAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAYAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAA4AAAAAAAAAAAAFAA0AAAAAAAAAAAAGAAwAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAoAAAAAAAAAAAAGAAkADAAAAAAAAAAGAAgAAgAAAAAAAAAFAAcAAgAAAAAAAAAFAAYAAgAAAAAAAAAEAAUACQAAAAAAAAAEAAYAAwAAAAAAAAADAAcAAwAAAAAAAAADAAgAAwAAAAAAAAACAAkAAwAAAAAAAAACAAoAAwAAAAAAAAACAAsAAAAAAAAAAAADAAoAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAADAAsAAAAAAAAAAAADAAwAAAAAAAAAAAADAA0AAAAAAAAAAAAEAAwAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAoAAwAAAAAAAAAFAAsAAwAAAAAAAAAFAAwAAwAAAAAAAAAEAA0AAwAAAAAAAAAEAA4ACwAAAAAAAAAEAA8AAgAAAAAAAAAFABAAAgAAAAAAAAAFAA8AAAAAAAAAAAAGAA4AAAAAAAAAAAAGAA0AAAAAAAAAAAAHAAwAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAwAAAAAAAAAAAAHAA0AAAAAAAAAAAAHAA4AAAAAAAAAAAAGAA8AAAAAAAAAAAAGABAAAAAAAAAAAAAFABEAAgAAAAAAAAAGABIACgAAAAAAAAAGABEAAwAAAAAAAAAHABAAAwAAAAAAAAAHAA8AAwAAAAAAAAAIAA4AAwAAAAAAAAAIAA0AAwAAAAAAAAA=")
+tile_set = SubResource("TileSet_5k3fp")
+
+[node name="EnemyPath" type="Path2D" parent="." unique_id=2078967344]
+scale = Vector2(0.99999994, 0.99999994)
+curve = SubResource("Curve2D_rmnd1")
+
+[node name="WaveLabel" type="Label" parent="." unique_id=456152504]
+offset_left = 640.0
+offset_top = 24.0
+offset_right = 704.0
+offset_bottom = 48.0
+text = "WAVE 1"
+
+[node name="EnemyLabel" type="Label" parent="." unique_id=441713108]
+offset_left = 280.0
+offset_top = 24.0
+offset_right = 371.0
+offset_bottom = 48.0
+text = "ENEMY: 100"
+
+[node name="GoldLabel" type="Label" parent="." unique_id=1610061813]
+offset_left = 1216.0
+offset_top = 24.0
+offset_right = 1307.0
+offset_bottom = 48.0
+text = "GOLD: 100"
+
+[node name="HpLabel" type="Label" parent="." unique_id=1818006132]
+offset_left = 960.0
+offset_top = 24.0
+offset_right = 1051.0
+offset_bottom = 48.0
+text = "HP: 100"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=720873409]
+offset_left = 1344.0
+offset_right = 1664.0
+offset_bottom = 768.0
+
+[node name="Setting" type="Sprite2D" parent="." unique_id=1031811623]
+position = Vector2(32.000004, 736)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("14_osutr")
+
+[node name="Pause" type="Sprite2D" parent="." unique_id=1308089366]
+position = Vector2(32.000004, 32.000004)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("15_bc8pi")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=627855102]
+one_shot = true
+
+[node name="WaveCountdownTimer" type="Timer" parent="." unique_id=284986925]
+one_shot = true
+
+[node name="TowerPanel" parent="." unique_id=646288814 node_paths=PackedStringArray("grid_system", "level_node") instance=ExtResource("20_4vntt")]
+script = ExtResource("21_48lp4")
+archer_data = ExtResource("22_rb8uy")
+wizard_data = ExtResource("23_7wjjj")
+barrack_data = ExtResource("24_jqu2d")
+grid_system = NodePath("../GridSystem")
+level_node = NodePath("..")
+
+[node name="GridSystem" parent="." unique_id=522242352 node_paths=PackedStringArray("tilemap_layer") instance=ExtResource("19_ioey5")]
+tilemap_layer = NodePath("../TileMapLayer")

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bs7s1yjp0hj8s"]
+
+[ext_resource type="Script" uid="uid://bi3inxdbbfsvx" path="res://scripts/custom_resources/enemy_data.gd" id="1_h4j2h"]
+[ext_resource type="Texture2D" uid="uid://ca82jngvqebeo" path="res://assets/Sprites/UFO/UFO(2).png" id="2_ru1he"]
+
+[resource]
+script = ExtResource("1_h4j2h")
+enemy_id = "ufo_drone"
+enemy_name = "UFO Drone"
+sprite_texture = ExtResource("2_ru1he")
+max_hp = 160
+armor = 2
+move_speed = 140.0
+reward_gold = 15
+metadata/_custom_type_script = "uid://bi3inxdbbfsvx"

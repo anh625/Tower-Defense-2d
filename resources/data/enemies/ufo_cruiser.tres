@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://0wh213lp75ro"]
+
+[ext_resource type="Script" uid="uid://bi3inxdbbfsvx" path="res://scripts/custom_resources/enemy_data.gd" id="1_2fw5x"]
+[ext_resource type="Texture2D" uid="uid://b43gj7155el48" path="res://assets/Sprites/UFO/UFO(6).png" id="2_edshs"]
+
+[resource]
+script = ExtResource("1_2fw5x")
+enemy_id = "ufo_cruiser"
+enemy_name = "UFO Cruiser"
+sprite_texture = ExtResource("2_edshs")
+max_hp = 1100
+armor = 18
+move_speed = 65.0
+reward_gold = 80
+base_damage = 5
+metadata/_custom_type_script = "uid://bi3inxdbbfsvx"

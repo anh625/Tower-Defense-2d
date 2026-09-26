@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c4vx16jo68fg5"]
+
+[ext_resource type="Script" uid="uid://borukdisxlhb2" path="res://scripts/managers/grid_system.gd" id="1_6dv3l"]
+
+[node name="GridSystem" type="Node2D" unique_id=522242352 node_paths=PackedStringArray("tilemap_layer")]
+script = ExtResource("1_6dv3l")
+tilemap_layer = NodePath("")

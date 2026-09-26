@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dtk3yi8wnkxa1"]
+
+[ext_resource type="Script" uid="uid://bi3inxdbbfsvx" path="res://scripts/custom_resources/enemy_data.gd" id="1_itmkj"]
+[ext_resource type="Texture2D" uid="uid://caqh6qq5518d0" path="res://assets/Sprites/UFO/UFO(3).png" id="2_sx2lq"]
+
+[resource]
+script = ExtResource("1_itmkj")
+enemy_id = "ufo_soldier"
+enemy_name = "UFO Soldier"
+sprite_texture = ExtResource("2_sx2lq")
+max_hp = 320
+armor = 6
+move_speed = 115.0
+reward_gold = 25
+base_damage = 2
+metadata/_custom_type_script = "uid://bi3inxdbbfsvx"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bs1w8s2wdk4wd"]
+
+[ext_resource type="Script" uid="uid://bi3inxdbbfsvx" path="res://scripts/custom_resources/enemy_data.gd" id="1_vs7qt"]
+[ext_resource type="Texture2D" uid="uid://b3jr11h5dqxxy" path="res://assets/Sprites/UFO/UFO(1).png" id="2_h77rq"]
+
+[resource]
+script = ExtResource("1_vs7qt")
+enemy_id = "ufo_scout"
+enemy_name = "UFO Scout"
+sprite_texture = ExtResource("2_h77rq")
+max_hp = 90
+move_speed = 190.0
+metadata/_custom_type_script = "uid://bi3inxdbbfsvx"

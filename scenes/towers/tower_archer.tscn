@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dmv2e6x1wfmvp"]
+
+[ext_resource type="Script" uid="uid://chwwakecpshat" path="res://scripts/entities/tower.gd" id="1_c4l56"]
+[ext_resource type="Resource" uid="uid://cmm7a7mw2gpg7" path="res://resources/data/towers/tower_archer.tres" id="2_387bw"]
+[ext_resource type="Texture2D" uid="uid://dhbk6a66xrwmm" path="res://assets/Sprites/Towers/Archer/archer_level_1.png" id="3_pc3b1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pc3b1"]
+
+[node name="Tower" type="Node2D" unique_id=1159800189]
+script = ExtResource("1_c4l56")
+data = ExtResource("2_387bw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=94474887]
+position = Vector2(-8.077936e-28, -7.6293945e-06)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_pc3b1")
+
+[node name="MuzzleMarker" type="Marker2D" parent="." unique_id=605977674]
+position = Vector2(0, -49)
+
+[node name="RangeArea" type="Area2D" parent="." unique_id=1478247974]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangeArea" unique_id=538727220]
+shape = SubResource("CircleShape2D_pc3b1")

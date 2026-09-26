@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dka505het7hvp"]
+
+[ext_resource type="Script" uid="uid://d0qbbvppm4kv6" path="res://scripts/entities/projectile.gd" id="1_5iow8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5k3fp"]
+radius = 7.0
+height = 20.0
+
+[node name="Projectile" type="Area2D" unique_id=1004045744]
+scale = Vector2(0.4, 0.4)
+collision_layer = 0
+script = ExtResource("1_5iow8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=871340742]
+shape = SubResource("CapsuleShape2D_5k3fp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=742201663]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
