@@ -146,7 +146,7 @@ func request_place_tower(world_pos: Vector2) -> bool:
 ## Vẽ vòng tầm bắn hình tròn đồng bộ với CircleShape2D (Cách 2)
 func _draw() -> void:
 	if is_previewing and current_preview_type:
-		var radius: float = current_preview_type.attack_range[0]
+		var radius: float = current_preview_type.attack_range[0] * 0.4
 		var center: Vector2 = preview_indicator.global_position
 		
 		# Thiết lập màu sắc: Xanh khi hợp lệ, Đỏ khi không thể đặt
