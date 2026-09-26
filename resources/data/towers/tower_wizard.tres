@@ -1,14 +1,20 @@
 [gd_resource type="Resource" script_class="TowerData" format=3 uid="uid://vurgo4u3xucw"]
 
 [ext_resource type="Script" uid="uid://cf8dlb05wx22d" path="res://scripts/custom_resources/tower_data.gd" id="1_1pud5"]
+[ext_resource type="PackedScene" uid="uid://qer11qxcnf2h" path="res://scenes/projectiles/wizard_bullet.tscn" id="1_3hnfd"]
+[ext_resource type="Texture2D" uid="uid://uxnv4o35r0rx" path="res://assets/Sprites/Towers/Wizard/wizard_level_1.png" id="3_7vt1i"]
+[ext_resource type="Texture2D" uid="uid://b1h4moe6sbwne" path="res://assets/Sprites/Towers/Wizard/wizard_level_2.png" id="4_kslm2"]
+[ext_resource type="Texture2D" uid="uid://cjohj4k52puly" path="res://assets/Sprites/Towers/Wizard/wizard_level_3.png" id="5_yi3md"]
 
 [resource]
 script = ExtResource("1_1pud5")
 tower_id = "tower_wizard"
 tower_name = "Tower Wizard"
 cost = 130
+sprites = Array[Texture2D]([ExtResource("3_7vt1i"), ExtResource("4_kslm2"), ExtResource("5_yi3md")])
 base_damage = Array[int]([35, 65, 110])
 attack_range = Array[float]([260.0, 300.0, 350.0])
 attack_speed = Array[float]([0.8, 0.95, 1.1])
 upgrade_cost = Array[int]([90, 150])
+projectile_scene = ExtResource("1_3hnfd")
 metadata/_custom_type_script = "uid://cf8dlb05wx22d"
