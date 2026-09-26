@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dagm8b5dsyfj7"]
+
+[ext_resource type="Script" uid="uid://bi3inxdbbfsvx" path="res://scripts/custom_resources/enemy_data.gd" id="1_c46of"]
+[ext_resource type="Texture2D" uid="uid://d0tjsxkmtbder" path="res://assets/Sprites/UFO/UFO(5).png" id="2_j635r"]
+
+[resource]
+script = ExtResource("1_c46of")
+enemy_id = "ufo_tanker"
+enemy_name = "UFO Tanker"
+sprite_texture = ExtResource("2_j635r")
+max_hp = 750
+armor = 14
+move_speed = 75.0
+reward_gold = 50
+base_damage = 4
+metadata/_custom_type_script = "uid://bi3inxdbbfsvx"

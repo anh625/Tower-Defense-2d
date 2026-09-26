@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cfqgnbfsrksct"]
+
+[node name="TowerPanel" type="Control" unique_id=646288814]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=306378528]
+layout_mode = 0
+offset_left = 1344.0
+offset_right = 1664.0
+offset_bottom = 768.0
+
+[node name="BtnArcher" type="Button" parent="VBoxContainer" unique_id=1534923198]
+layout_mode = 2
+text = "Mua Cung - 100G"
+
+[node name="BtnWizard" type="Button" parent="VBoxContainer" unique_id=1095782628]
+layout_mode = 2
+text = "Mua Pháp Sư - 130G"
+
+[node name="BtnBarrack" type="Button" parent="VBoxContainer" unique_id=890221071]
+layout_mode = 2
+text = "Mua Pháp Sư - 130G"
+
+[node name="PreviewIndicator" type="Node2D" parent="." unique_id=1832825674]
+scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="PreviewIndicator" unique_id=473726043]

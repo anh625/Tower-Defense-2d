@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cjxp05r30hlun"]
+
+[ext_resource type="Script" uid="uid://bi3inxdbbfsvx" path="res://scripts/custom_resources/enemy_data.gd" id="1_kc7wv"]
+[ext_resource type="Texture2D" uid="uid://dtu4q4kxqrg48" path="res://assets/Sprites/UFO/UFO(7).png" id="2_88yhc"]
+
+[resource]
+script = ExtResource("1_kc7wv")
+enemy_id = "ufo_mother_ship"
+enemy_name = "UFO Mother Ship"
+sprite_texture = ExtResource("2_88yhc")
+max_hp = 3000
+armor = 25
+move_speed = 50.0
+reward_gold = 200
+base_damage = 10
+metadata/_custom_type_script = "uid://bi3inxdbbfsvx"

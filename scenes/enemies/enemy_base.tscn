@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cyfh7ibbxavoq"]
+
+[ext_resource type="Script" uid="uid://ccqhtuxb6w4i7" path="res://scripts/entities/enemy.gd" id="1_pkqou"]
+[ext_resource type="Texture2D" uid="uid://b3jr11h5dqxxy" path="res://assets/Sprites/UFO/UFO(1).png" id="2_satqt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_46nju"]
+radius = 14.746124
+height = 35.34567
+
+[node name="Enemy" type="PathFollow2D" unique_id=1527949918]
+rotation = -0.54428047
+loop = false
+script = ExtResource("1_pkqou")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1684659277]
+position = Vector2(1.2382236, -9.770712)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_satqt")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1475699691]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=106648771]
+position = Vector2(1.2382236, -9.770712)
+shape = SubResource("CapsuleShape2D_46nju")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TowerData" format=3 uid="uid://b5leh120jgaum"]
+
+[ext_resource type="Script" uid="uid://cf8dlb05wx22d" path="res://scripts/custom_resources/tower_data.gd" id="1_l75o3"]
+
+[resource]
+script = ExtResource("1_l75o3")
+tower_id = "tower_barrack"
+tower_name = "Tower Barrack"
+cost = 120
+base_damage = Array[float]([22.0, 40.0, 68.0])
+attack_range = Array[float]([100.0, 115.0, 130.0])
+attack_speed = Array[float]([1.0, 1.2, 1.5])
+upgrade_cost = Array[int]([80, 130])
+metadata/_custom_type_script = "uid://cf8dlb05wx22d"
