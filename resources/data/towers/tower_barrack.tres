@@ -1,14 +1,20 @@
 [gd_resource type="Resource" script_class="TowerData" format=3 uid="uid://b5leh120jgaum"]
 
+[ext_resource type="PackedScene" uid="uid://p27qtrbjcp6i" path="res://scenes/projectiles/sword.tscn" id="1_3lsxa"]
 [ext_resource type="Script" uid="uid://cf8dlb05wx22d" path="res://scripts/custom_resources/tower_data.gd" id="1_l75o3"]
+[ext_resource type="Texture2D" uid="uid://4qgdmsmaowal" path="res://assets/Sprites/Towers/Barrack/barrack_level_1 (1).png" id="3_qs41s"]
+[ext_resource type="Texture2D" uid="uid://ppqh1hcwitwe" path="res://assets/Sprites/Towers/Barrack/barrack_level_2 (1).png" id="4_fr7eg"]
+[ext_resource type="Texture2D" uid="uid://d28qfchsxbxpp" path="res://assets/Sprites/Towers/Barrack/barrack_level_3 (1).png" id="5_70pr7"]
 
 [resource]
 script = ExtResource("1_l75o3")
 tower_id = "tower_barrack"
 tower_name = "Tower Barrack"
 cost = 120
+sprites = Array[Texture2D]([ExtResource("3_qs41s"), ExtResource("4_fr7eg"), ExtResource("5_70pr7")])
 base_damage = Array[int]([22, 40, 68])
 attack_range = Array[float]([200.0, 230.0, 260.0])
 attack_speed = Array[float]([1.0, 1.2, 1.5])
 upgrade_cost = Array[int]([80, 130])
+projectile_scene = ExtResource("1_3lsxa")
 metadata/_custom_type_script = "uid://cf8dlb05wx22d"

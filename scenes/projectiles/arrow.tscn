@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bawhf7rie1yto" path="res://assets/Sprites/Towers/Archer/arrow.png" id="2_m2i7i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5k3fp"]
-radius = 7.0
-height = 20.0
+radius = 12.499999
+height = 39.999996
 
 [node name="Projectile" type="Area2D" unique_id=1004045744]
 scale = Vector2(0.4, 0.4)
