@@ -6,6 +6,9 @@ extends Node2D
 
 ## Trạng thái hoạt động
 var current_level: int = 1
+var cell_pos: Vector2i = Vector2i.ZERO
+var total_invested_gold: int = 0
+
 var current_target: Enemy = null
 var targets_in_range: Array[Enemy] = []
 
@@ -14,9 +17,14 @@ var attack_cooldown: float = 0.0
 
 ## Tham chiếu các Node con bên trong Scene
 @onready var range_area: Area2D = $RangeArea
-@onready var collision_shape: CollisionShape2D = $RangeArea/CollisionShape2D
+@onready var range_collision: CollisionShape2D = $RangeArea/CollisionShape2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var muzzle_marker: Marker2D = $MuzzleMarker
+
+
+@onready var upgrade_container: HBoxContainer = find_child("UpgradeContainer", true, false) as HBoxContainer
+@onready var upgrade_button: Button = find_child("UpgradeBtn", true, false) as Button
+@onready var sell_button: Button = find_child("SellBtn", true, false) as Button
 
 func _ready() -> void:
 	if not range_area:
@@ -29,8 +37,12 @@ func _ready() -> void:
 	range_area.area_exited.connect(_on_range_area_exited)
 	
 	# Đồng bộ bán kính tầm bắn theo cấp độ hiện tại
-	_update_range_shape()
-	_update_visual() # Cập nhật hình ảnh ban đầu cho Level 1
+	if data:
+		total_invested_gold = data.cost
+		_update_range_shape()
+		_update_visual() # Cập nhật hình ảnh ban đầu cho Level 1
+	
+	upgrade_container.visible = false
 
 
 func _physics_process(delta: float) -> void:
@@ -106,19 +118,6 @@ func shoot() -> void:
 	else:
 		get_parent().add_child(proj_instance)
 
-
-## Cập nhật lại bán kính CollisionShape2D tương ứng attack_range trong TowerData
-func _update_range_shape() -> void:
-	if not data or not collision_shape:
-		return
-		
-	var radius: float = data.attack_range[current_level - 1]
-	if collision_shape.shape is CircleShape2D:
-		collision_shape.shape.radius = radius
-	else:
-		var circle = CircleShape2D.new()
-		circle.radius = radius
-		collision_shape.shape = circle
 		
 ## Hàm gán Texture tương ứng với level hiện tại
 func _update_visual() -> void:
@@ -155,17 +154,6 @@ func _on_range_area_exited(area: Area2D) -> void:
 		if current_target == enemy:
 			current_target = null
 
-
-## Nâng cấp tháp lên cấp độ tiếp theo
-func upgrade() -> void:
-	if not data:
-		return
-	if current_level < data.max_level:
-		current_level += 1
-		_update_range_shape()
-		_update_visual() # Đổi sang ảnh của Level mới
-
-
 ## Giá bán hoàn lại (70% tổng giá trị đã đầu tư)
 func get_sell_value() -> int:
 	if not data:
@@ -175,3 +163,58 @@ func get_sell_value() -> int:
 		if i < data.upgrade_cost.size():
 			total_spent += data.upgrade_cost[i]
 	return int(total_spent * 0.7)
+
+## Kiểm tra tháp đã đạt cấp tối đa chưa
+func is_max_level() -> bool:
+	if not data:
+		return true
+	return current_level >= data.max_level
+	
+## Lấy chi phí nâng cấp lên cấp tiếp theo
+func get_upgrade_cost() -> int:
+	if not data or is_max_level():
+		return 0
+	var cost_index: int = current_level - 1
+	if cost_index < data.upgrade_cost.size():
+		return data.upgrade_cost[cost_index]
+	return 0
+	
+## Tính lượng vàng hoàn trả khi bán tháp (70% tổng vàng đã đầu tư)
+func get_sell_refund() -> int:
+	return int(round(total_invested_gold * 0.7))
+	
+## Lấy bán kính tầm bắn ở cấp độ hiện tại
+func get_current_range() -> float:
+	if not data or data.attack_range.is_empty():
+		return 150.0
+	var idx: int = clampi(current_level - 1, 0, data.attack_range.size() - 1)
+	return data.attack_range[idx]
+	
+## Lấy sát thương ở cấp độ hiện tại
+func get_current_damage() -> float:
+	if not data or data.base_damage.is_empty():
+		return 10.0
+	var idx: int = clampi(current_level - 1, 0, data.base_damage.size() - 1)
+	return data.base_damage[idx]
+	
+## Lấy tốc độ đánh ở cấp độ hiện tại
+func get_current_attack_speed() -> float:
+	if not data or data.attack_speed.is_empty():
+		return 1.0
+	var idx: int = clampi(current_level - 1, 0, data.attack_speed.size() - 1)
+	return data.attack_speed[idx]
+	
+## Thực hiện nâng cấp tháp
+func upgrade() -> void:
+	if not data or is_max_level():
+		return
+	total_invested_gold += get_upgrade_cost()
+	current_level += 1
+	_update_range_shape()
+	_update_visual()
+	
+## Cập nhật bán kính vùng va chạm quét quái
+func _update_range_shape() -> void:
+	if range_collision and range_collision.shape is CircleShape2D:
+		(range_collision.shape as CircleShape2D).radius = get_current_range()
+	
