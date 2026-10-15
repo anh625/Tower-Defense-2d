@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://oll5sotkd2mr" path="res://assets/Sprites/Towers/Wizard/wizard_bullet.png" id="2_kdjpp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdjpp"]
-radius = 7.499999
+radius = 14.999998
 
 [node name="Projectile" type="Area2D" unique_id=1004045744]
 scale = Vector2(0.4, 0.4)
@@ -15,6 +15,7 @@ script = ExtResource("1_6li1m")
 shape = SubResource("CircleShape2D_kdjpp")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=742201663]
+scale = Vector2(2, 2)
 texture = ExtResource("2_kdjpp")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

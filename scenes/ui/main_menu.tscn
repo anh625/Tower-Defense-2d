@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://doi0aojcardc7"]
+
+[ext_resource type="PackedScene" uid="uid://ccqxp05djnofa" path="res://scenes/ui/settings_popup.tscn" id="1_sl1te"]
+[ext_resource type="Script" uid="uid://cloyovow3trgk" path="res://scripts/ui/main_menu.gd" id="2_fe2o3"]
+
+[node name="MainMenu" type="Control" unique_id=975027047]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_fe2o3")
+
+[node name="Background" type="ColorRect" parent="." unique_id=287405283]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.99215686, 1, 1, 0.30980393)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=993812879]
+layout_mode = 0
+offset_right = 1664.0
+offset_bottom = 77.0
+theme_override_font_sizes/font_size = 56
+text = "TOWER DEFENSE 2D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="." unique_id=1284592543]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 352.0
+offset_right = 994.0
+offset_bottom = 392.0
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="PlayBtn" type="Button" parent="ButtonsContainer" unique_id=1497640820]
+layout_mode = 2
+text = "Play"
+
+[node name="SettingBtn" type="Button" parent="ButtonsContainer" unique_id=262151819]
+layout_mode = 2
+text = "Setting"
+
+[node name="LoadBtn" type="Button" parent="ButtonsContainer" unique_id=1954516199]
+layout_mode = 2
+text = "Load"
+
+[node name="SaveBtn" type="Button" parent="ButtonsContainer" unique_id=1432201254]
+layout_mode = 2
+text = "Save"
+
+[node name="SettingsPopup" parent="." unique_id=2017878386 instance=ExtResource("1_sl1te")]
+layout_mode = 0
+anchors_preset = 0

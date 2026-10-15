@@ -16,36 +16,45 @@ var is_previewing: bool = false
 var is_valid_position: bool = false
 var preview_cell: Vector2i = Vector2i.ZERO
 
-@onready var preview_indicator: Node2D = $PreviewIndicator
-@onready var preview_sprite: Sprite2D = $PreviewIndicator/Sprite2D
-
+@onready var preview_indicator: Node2D = find_child("PreviewIndicator", true, false) as Node2D
+@onready var preview_sprite: Sprite2D = find_child("Sprite2D", true, false) as Sprite2D
+@onready var btn_archer = find_child("BtnArcher", true, false) as Button
+@onready var btn_wizard = find_child("BtnWizard", true, false) as Button
+@onready var btn_barrack = find_child("BtnBarrack", true, false) as Button
 
 func _ready() -> void:
+	if not level_node:
+		level_node = get_parent() as Level
+	if not grid_system and level_node:
+		grid_system = level_node.get_node_or_null("GridSystem") as GridSystem
 	preview_indicator.visible = false
 	preview_sprite.position = Vector2(0, -44)
+	btn_archer.text = "Mua Cung - " + str(archer_data.cost) + "G"
+	btn_wizard.text = "Mua Pháp Sư - " + str(wizard_data.cost) + "G"
+	btn_barrack.text = "Mua Kiếm Sĩ - " + str(barrack_data.cost) + "G"
 	
 	# Kết nối sự kiện nút bấm trên HUD
-	var btn_archer = find_child("BtnArcher", true, false) as Button
 	if btn_archer:
 		btn_archer.pressed.connect(func():
 			print(">>> ĐÃ CLICK NÚT MUA CUNG! <<<")
 			start_placement_preview(archer_data)
 		)	
 		
-	var btn_wizard = find_child("BtnWizard", true, false) as Button
 	if btn_wizard:
 		btn_wizard.pressed.connect(func(): 
 			print(">>> ĐÃ CLICK NÚT MUA PHÁP SƯ! <<<")
 			start_placement_preview(wizard_data)
 		)	
 	
-	var btn_barrack = find_child("BtnBarrack", true, false) as Button
 	if btn_barrack:
 		btn_barrack.pressed.connect(func(): 
 			print(">>> ĐÃ CLICK NÚT MUA PHÁP SƯ! <<<")
 			start_placement_preview(barrack_data)
 		)	
 	
+	if level_node:
+		level_node.gold_changed.connect(_on_level_gold_changed)
+		_on_level_gold_changed(level_node.current_golds)
 
 func _process(_delta: float) -> void:
 	if not is_previewing or not current_preview_type or not grid_system:
@@ -109,14 +118,20 @@ func request_place_tower(world_pos: Vector2) -> bool:
 		return false
 	
 	# 2. Kiểm tra số dư vàng
-	var tower_cost = current_preview_type.cost
-	if level_node.current_golds < tower_cost:
-		print("[Xây dựng] Không đủ vàng! Cần: %d - Có: %d" % [tower_cost, level_node.current_golds])
+	#var tower_cost = current_preview_type.cost
+	#if level_node.current_golds < tower_cost:
+		#print("[Xây dựng] Không đủ vàng! Cần: %d - Có: %d" % [tower_cost, level_node.current_golds])
+		#return false
+	
+	if not level_node.spend_gold(current_preview_type.cost):
+		print("Không đủ vàng để mua tháp!")
 		return false
 	
-	# 3. Trừ vàng & Cập nhật
-	level_node.current_golds -= tower_cost
-	level_node.gold_changed.emit(level_node.current_golds)
+	#level_node.spend_gold(current_preview_type.cost)
+	
+	## 3. Trừ vàng & Cập nhật
+	#level_node.current_golds -= tower_cost
+	#level_node.gold_changed.emit(level_node.current_golds)
 	
 	# 4. Tạo thực thể Tháp mới
 	var tower_scene = load("res://scenes/towers/tower_base.tscn") as PackedScene
@@ -158,3 +173,11 @@ func _draw() -> void:
 		
 		# 2. Vẽ viền tròn bao quanh
 		draw_arc(center, radius, 0.0, TAU, 48, border_color, 2.0)
+		
+func _on_level_gold_changed(new_gold: int) -> void:
+	if btn_archer and archer_data:
+		btn_archer.disabled = (new_gold < archer_data.cost)
+	if btn_wizard and wizard_data:
+		btn_wizard.disabled = (new_gold < wizard_data.cost)
+	if btn_barrack and barrack_data:
+		btn_barrack.disabled = (new_gold < barrack_data.cost)
