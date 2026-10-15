@@ -18,12 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://vvwiqlrtyorg" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(8).png" id="13_ug1pp"]
 [ext_resource type="Texture2D" uid="uid://bosm2q6k53bac" path="res://assets/icons/setting.png" id="14_osutr"]
 [ext_resource type="Texture2D" uid="uid://bsmh02dkifepx" path="res://assets/icons/pause.png" id="15_bc8pi"]
+[ext_resource type="PackedScene" uid="uid://ccqxp05djnofa" path="res://scenes/ui/settings_popup.tscn" id="19_4vntt"]
 [ext_resource type="PackedScene" uid="uid://c4vx16jo68fg5" path="res://scenes/managers/grid_system.tscn" id="19_ioey5"]
 [ext_resource type="PackedScene" uid="uid://cfqgnbfsrksct" path="res://scenes/ui/tower_panel.tscn" id="20_4vntt"]
-[ext_resource type="Script" uid="uid://cg3cnquyjb2rs" path="res://scripts/ui/tower_panel.gd" id="21_48lp4"]
-[ext_resource type="Resource" uid="uid://cmm7a7mw2gpg7" path="res://resources/data/towers/tower_archer.tres" id="22_rb8uy"]
-[ext_resource type="Resource" uid="uid://vurgo4u3xucw" path="res://resources/data/towers/tower_wizard.tres" id="23_7wjjj"]
-[ext_resource type="Resource" uid="uid://b5leh120jgaum" path="res://resources/data/towers/tower_barrack.tres" id="24_jqu2d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3lh42"]
 texture = ExtResource("1_l4xu8")
@@ -141,51 +138,8 @@ tile_map_data = PackedByteArray("AAABAAoAAAAAAAAAAAABAAsAAwAAAAAAAAACAAwAAAAAAAA
 tile_set = SubResource("TileSet_5k3fp")
 
 [node name="EnemyPath" type="Path2D" parent="." unique_id=2078967344]
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.9999998, 0.9999998)
 curve = SubResource("Curve2D_rmnd1")
-
-[node name="WaveLabel" type="Label" parent="." unique_id=456152504]
-offset_left = 640.0
-offset_top = 24.0
-offset_right = 704.0
-offset_bottom = 48.0
-text = "WAVE 1"
-
-[node name="EnemyLabel" type="Label" parent="." unique_id=441713108]
-offset_left = 280.0
-offset_top = 24.0
-offset_right = 371.0
-offset_bottom = 48.0
-text = "ENEMY: 100"
-
-[node name="GoldLabel" type="Label" parent="." unique_id=1610061813]
-offset_left = 1216.0
-offset_top = 24.0
-offset_right = 1307.0
-offset_bottom = 48.0
-text = "GOLD: 100"
-
-[node name="HpLabel" type="Label" parent="." unique_id=1818006132]
-offset_left = 960.0
-offset_top = 24.0
-offset_right = 1051.0
-offset_bottom = 48.0
-text = "HP: 100"
-
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=720873409]
-offset_left = 1344.0
-offset_right = 1664.0
-offset_bottom = 768.0
-
-[node name="Setting" type="Sprite2D" parent="." unique_id=1031811623]
-position = Vector2(32.000004, 736)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("14_osutr")
-
-[node name="Pause" type="Sprite2D" parent="." unique_id=1308089366]
-position = Vector2(32.000004, 32.000004)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("15_bc8pi")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=627855102]
 one_shot = true
@@ -193,13 +147,131 @@ one_shot = true
 [node name="WaveCountdownTimer" type="Timer" parent="." unique_id=284986925]
 one_shot = true
 
-[node name="TowerPanel" parent="." unique_id=646288814 node_paths=PackedStringArray("grid_system", "level_node") instance=ExtResource("20_4vntt")]
-script = ExtResource("21_48lp4")
-archer_data = ExtResource("22_rb8uy")
-wizard_data = ExtResource("23_7wjjj")
-barrack_data = ExtResource("24_jqu2d")
-grid_system = NodePath("../GridSystem")
-level_node = NodePath("..")
+[node name="TowerPanel" parent="." unique_id=646288814 instance=ExtResource("20_4vntt")]
 
-[node name="GridSystem" parent="." unique_id=522242352 node_paths=PackedStringArray("tilemap_layer") instance=ExtResource("19_ioey5")]
-tilemap_layer = NodePath("../TileMapLayer")
+[node name="GridSystem" parent="." unique_id=522242352 instance=ExtResource("19_ioey5")]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1133417873]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD" unique_id=1761927139]
+offset_left = 536.0
+offset_right = 1344.0
+offset_bottom = 72.0
+theme_override_constants/separation = 30
+
+[node name="EnemyLabel" type="Label" parent="HUD/HBoxContainer" unique_id=441713108]
+layout_mode = 2
+text = "ENEMY: 100"
+
+[node name="WaveLabel" type="Label" parent="HUD/HBoxContainer" unique_id=456152504]
+layout_mode = 2
+text = "Wave: 0/0"
+
+[node name="GoldLabel" type="Label" parent="HUD/HBoxContainer" unique_id=1610061813]
+layout_mode = 2
+text = "Gold: 250"
+
+[node name="HpLabel" type="Label" parent="HUD/HBoxContainer" unique_id=1818006132]
+layout_mode = 2
+text = "HP: 20"
+
+[node name="EarlyWaveBtn" type="Button" parent="HUD/HBoxContainer" unique_id=1118372598]
+layout_mode = 2
+text = "Gọi Wave Sớm"
+
+[node name="ResultPopup" type="PanelContainer" parent="HUD" unique_id=1284321840]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -110.0
+offset_right = 175.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/ResultPopup" unique_id=721730956]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="HUD/ResultPopup/VBoxContainer" unique_id=1817609790]
+layout_mode = 2
+text = "CHIẾN THẮNG!"
+horizontal_alignment = 1
+
+[node name="StarsLabel" type="Label" parent="HUD/ResultPopup/VBoxContainer" unique_id=1148266122]
+layout_mode = 2
+text = "★ ★ ★"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="HUD/ResultPopup/VBoxContainer" unique_id=1070589725]
+layout_mode = 2
+alignment = 1
+
+[node name="RestartBtn" type="Button" parent="HUD/ResultPopup/VBoxContainer/ButtonsContainer" unique_id=148864089]
+layout_mode = 2
+text = "Chơi lại"
+
+[node name="NextLevelBtn" type="Button" parent="HUD/ResultPopup/VBoxContainer/ButtonsContainer" unique_id=18469324]
+layout_mode = 2
+text = "Màn tiếp"
+
+[node name="MenuBtn" type="Button" parent="HUD/ResultPopup/VBoxContainer/ButtonsContainer" unique_id=1803063853]
+layout_mode = 2
+text = "Menu chính"
+
+[node name="PausePopup" type="PanelContainer" parent="HUD" unique_id=1315434430]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -130.0
+offset_right = 130.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PausePopup" unique_id=2044771728]
+layout_mode = 2
+alignment = 1
+
+[node name="PauseTitle" type="Label" parent="HUD/PausePopup/VBoxContainer" unique_id=14564354]
+layout_mode = 2
+text = "TẠM DỪNG"
+horizontal_alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="HUD/PausePopup/VBoxContainer" unique_id=2023372611]
+layout_mode = 2
+text = "Tiếp tục"
+
+[node name="PauseRestartBtn" type="Button" parent="HUD/PausePopup/VBoxContainer" unique_id=549627651]
+layout_mode = 2
+text = "Chơi lại"
+
+[node name="PauseMenuBtn" type="Button" parent="HUD/PausePopup/VBoxContainer" unique_id=747578611]
+layout_mode = 2
+text = "Menu chính"
+
+[node name="SettingsPopup" parent="HUD" unique_id=2017878386 instance=ExtResource("19_4vntt")]
+
+[node name="Pause" type="Button" parent="HUD" unique_id=1558470342]
+offset_right = 256.0
+offset_bottom = 256.0
+scale = Vector2(0.25, 0.25)
+icon = ExtResource("15_bc8pi")
+
+[node name="Setting" type="Button" parent="HUD" unique_id=2088683142]
+offset_top = 712.0
+offset_right = 558.0
+offset_bottom = 1270.0
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("14_osutr")

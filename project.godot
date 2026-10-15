@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Tower Defense 2d"
-run/main_scene="uid://iufq0tqtrv3w"
+run/main_scene="uid://doi0aojcardc7"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

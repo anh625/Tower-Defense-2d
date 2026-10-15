@@ -10,6 +10,9 @@ extends Node2D
 ## Dictionary lưu trữ các ô đã bị chiếm dụng: { Vector2i(x, y): Tower }
 var occupied_cells: Dictionary = {}
 
+func _ready() -> void:
+	if not tilemap_layer:
+		tilemap_layer = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
 
 ## Chuyển tọa độ thế giới sang tọa độ ô lưới
 func world_to_cell(world_pos: Vector2) -> Vector2i:
