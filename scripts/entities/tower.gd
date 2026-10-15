@@ -41,9 +41,6 @@ func _ready() -> void:
 		total_invested_gold = data.cost
 		_update_range_shape()
 		_update_visual() # Cập nhật hình ảnh ban đầu cho Level 1
-	
-	upgrade_container.visible = false
-
 
 func _physics_process(delta: float) -> void:
 	# Đếm ngược thời gian hồi đòn

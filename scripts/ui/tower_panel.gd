@@ -28,7 +28,7 @@ var selected_tower: Tower = null
 
 ## Tham chiếu các Node trong UpgradePopup
 @onready var upgrade_popup: Control = find_child("UpgradePopup", true, false) as Control
-@onready var title_label: Label = find_child("TitleLabel", true, false) as Label
+@onready var title_label: Label = find_child("TitleTowerLabel", true, false) as Label
 @onready var stats_label: Label = find_child("StatsLabel", true, false) as Label
 @onready var btn_upgrade: Button = find_child("BtnUpgrade", true, false) as Button
 @onready var btn_sell: Button = find_child("BtnSell", true, false) as Button
