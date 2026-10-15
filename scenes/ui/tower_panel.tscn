@@ -52,3 +52,41 @@ icon = ExtResource("7_0ya1t")
 scale = Vector2(0.4, 0.4)
 
 [node name="Sprite2D" type="Sprite2D" parent="PreviewIndicator" unique_id=473726043]
+
+[node name="UpgradePopup" type="PanelContainer" parent="." unique_id=1867185368]
+layout_mode = 0
+offset_left = -88.0
+offset_top = -200.0
+offset_right = 88.0
+offset_bottom = -107.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradePopup" unique_id=491264873]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="UpgradePopup/VBoxContainer" unique_id=1914307479]
+layout_mode = 2
+text = "Tháp Cung Thủ (Lv.1)"
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="UpgradePopup/VBoxContainer" unique_id=1326551406]
+layout_mode = 2
+text = "Tháp Cung Thủ (Lv.1)"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UpgradePopup/VBoxContainer" unique_id=1118462625]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnUpgrade" type="Button" parent="UpgradePopup/VBoxContainer/HBoxContainer" unique_id=866001955]
+layout_mode = 2
+text = "Nâng cấp"
+
+[node name="BtnSell" type="Button" parent="UpgradePopup/VBoxContainer/HBoxContainer" unique_id=1147958465]
+layout_mode = 2
+text = "Bán"
+
+[node name="BtnClose" type="Button" parent="UpgradePopup/VBoxContainer/HBoxContainer" unique_id=168709642]
+layout_mode = 2
+text = "Đóng"
