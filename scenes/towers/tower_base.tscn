@@ -19,21 +19,3 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangeArea" unique_id=538727220]
 shape = SubResource("CircleShape2D_ioey5")
-
-[node name="UpgradeContainer" type="HBoxContainer" parent="." unique_id=1334232193]
-visible = false
-offset_left = -139.0
-offset_top = -233.0
-offset_right = 132.0
-offset_bottom = -170.0
-theme_override_constants/separation = 16
-
-[node name="UpgradeBtn" type="Button" parent="UpgradeContainer" unique_id=1782524112]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Upgrade"
-
-[node name="SellBtn" type="Button" parent="UpgradeContainer" unique_id=349289209]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Sell"

@@ -65,7 +65,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="UpgradePopup/VBoxContainer" unique_id=1914307479]
+[node name="TitleTowerLabel" type="Label" parent="UpgradePopup/VBoxContainer" unique_id=1914307479]
 layout_mode = 2
 text = "Tháp Cung Thủ (Lv.1)"
 horizontal_alignment = 1
