@@ -1,21 +1,16 @@
 [gd_scene format=3 uid="uid://qer11qxcnf2h"]
 
-[ext_resource type="Script" uid="uid://d0qbbvppm4kv6" path="res://scripts/entities/projectile.gd" id="1_6li1m"]
+[ext_resource type="PackedScene" uid="uid://dka505het7hvp" path="res://scenes/projectiles/projectile_base.tscn" id="1_kdjpp"]
 [ext_resource type="Texture2D" uid="uid://oll5sotkd2mr" path="res://assets/Sprites/Towers/Wizard/wizard_bullet.png" id="2_kdjpp"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kdjpp"]
-radius = 14.999998
+[sub_resource type="CircleShape2D" id="CircleShape2D_0umxa"]
+radius = 15.206904
 
-[node name="Projectile" type="Area2D" unique_id=1004045744]
-scale = Vector2(0.4, 0.4)
-collision_layer = 0
-script = ExtResource("1_6li1m")
+[node name="WizardBullet" unique_id=1004045744 instance=ExtResource("1_kdjpp")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=871340742]
-shape = SubResource("CircleShape2D_kdjpp")
+[node name="CollisionShape2D" parent="." index="0" unique_id=871340742]
+shape = SubResource("CircleShape2D_0umxa")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=742201663]
+[node name="Sprite2D" parent="." index="2" unique_id=742201663]
 scale = Vector2(2, 2)
 texture = ExtResource("2_kdjpp")
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]

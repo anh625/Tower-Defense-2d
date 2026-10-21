@@ -14,6 +14,16 @@ script = ExtResource("1_5iow8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=871340742]
 shape = SubResource("CapsuleShape2D_5k3fp")
 
+[node name="TrailParticles" type="CPUParticles2D" parent="." unique_id=757986888]
+scale = Vector2(0.99999994, 0.99999994)
+amount = 15
+lifetime = 0.25
+spread = 15.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 10.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=742201663]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

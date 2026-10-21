@@ -16,6 +16,7 @@ extends Control
 
 func _ready() -> void:
 	get_tree().paused = false
+	AudioManager.play_bgm("menu")
 	
 	if play_btn:
 		play_btn.pressed.connect(play_game)

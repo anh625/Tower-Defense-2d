@@ -16,11 +16,15 @@
 [ext_resource type="Texture2D" uid="uid://8qdx2b731ngj" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(6).png" id="11_7wjjj"]
 [ext_resource type="Texture2D" uid="uid://bp1ioac0jr5y0" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(7).png" id="12_jqu2d"]
 [ext_resource type="Texture2D" uid="uid://vvwiqlrtyorg" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(8).png" id="13_ug1pp"]
-[ext_resource type="Texture2D" uid="uid://bosm2q6k53bac" path="res://assets/icons/setting.png" id="14_osutr"]
+[ext_resource type="Texture2D" uid="uid://cob8pow3kca3m" path="res://assets/icons/setting.png" id="14_osutr"]
 [ext_resource type="Texture2D" uid="uid://bsmh02dkifepx" path="res://assets/icons/pause.png" id="15_bc8pi"]
 [ext_resource type="PackedScene" uid="uid://ccqxp05djnofa" path="res://scenes/ui/settings_popup.tscn" id="19_4vntt"]
 [ext_resource type="PackedScene" uid="uid://c4vx16jo68fg5" path="res://scenes/managers/grid_system.tscn" id="19_ioey5"]
 [ext_resource type="PackedScene" uid="uid://cfqgnbfsrksct" path="res://scenes/ui/tower_panel.tscn" id="20_4vntt"]
+[ext_resource type="Texture2D" uid="uid://c3phltdebmx8k" path="res://assets/icons/Meteor.png" id="22_4vntt"]
+[ext_resource type="Script" uid="uid://cbkgkppq17nk4" path="res://scripts/ui/skill_hud.gd" id="22_7wjjj"]
+[ext_resource type="Texture2D" uid="uid://dl3wg645rpsb8" path="res://assets/icons/freeze.png" id="23_48lp4"]
+[ext_resource type="Script" uid="uid://6nj46r7ncrh2" path="res://scripts/managers/skill_manager.gd" id="25_jqu2d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3lh42"]
 texture = ExtResource("1_l4xu8")
@@ -263,15 +267,101 @@ text = "Menu chính"
 
 [node name="SettingsPopup" parent="HUD" unique_id=2017878386 instance=ExtResource("19_4vntt")]
 
-[node name="Pause" type="Button" parent="HUD" unique_id=1558470342]
+[node name="Pause" type="TextureButton" parent="HUD" unique_id=1588682197]
 offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(0.25, 0.25)
-icon = ExtResource("15_bc8pi")
+texture_normal = ExtResource("15_bc8pi")
 
-[node name="Setting" type="Button" parent="HUD" unique_id=2088683142]
+[node name="Setting" type="TextureButton" parent="HUD" unique_id=736938672]
 offset_top = 712.0
 offset_right = 558.0
 offset_bottom = 1270.0
 scale = Vector2(0.1, 0.1)
-icon = ExtResource("14_osutr")
+texture_normal = ExtResource("14_osutr")
+
+[node name="SkillHUD" type="Control" parent="." unique_id=2123321251]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("22_7wjjj")
+
+[node name="SkillsContainer" type="HBoxContainer" parent="SkillHUD" unique_id=1207617543]
+layout_mode = 0
+offset_left = 1176.0
+offset_top = 688.0
+offset_right = 1336.0
+offset_bottom = 760.0
+theme_override_constants/separation = 16
+
+[node name="BtnMeteor" type="TextureButton" parent="SkillHUD/SkillsContainer" unique_id=1389104311]
+custom_minimum_size = Vector2(72, 72)
+custom_maximum_size = Vector2(72, 72)
+layout_mode = 2
+offset_transform_enabled = true
+texture_normal = ExtResource("22_4vntt")
+stretch_mode = 0
+
+[node name="MeteorCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/SkillsContainer/BtnMeteor" unique_id=537716059]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+step = 0.05
+fill_mode = 4
+
+[node name="MeteorTimerLabel" type="Label" parent="SkillHUD/SkillsContainer/BtnMeteor" unique_id=34653801]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnFreeze" type="TextureButton" parent="SkillHUD/SkillsContainer" unique_id=2109046077]
+custom_minimum_size = Vector2(72, 72)
+custom_maximum_size = Vector2(72, 72)
+layout_mode = 2
+offset_transform_enabled = true
+texture_normal = ExtResource("23_48lp4")
+stretch_mode = 0
+
+[node name="FreezeCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/SkillsContainer/BtnFreeze" unique_id=985252042]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+step = 0.05
+fill_mode = 4
+
+[node name="FreezeTimerLabel" type="Label" parent="SkillHUD/SkillsContainer/BtnFreeze" unique_id=143413613]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+theme_override_font_sizes/font_size = 25
+text = "40"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AoEReticle" type="Node2D" parent="SkillHUD" unique_id=347950360]
+
+[node name="SkillManager" type="Node2D" parent="." unique_id=97657286]
+script = ExtResource("25_jqu2d")

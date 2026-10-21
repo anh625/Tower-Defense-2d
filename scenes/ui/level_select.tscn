@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ca8eitm0pcj65"]
 
-[ext_resource type="Script" uid="uid://cfwqjkybd8sn7" path="res://scripts/ui/select_level.gd" id="1_l0h45"]
+[ext_resource type="Script" uid="uid://cfwqjkybd8sn7" path="res://scripts/ui/level_select.gd" id="1_l0h45"]
 [ext_resource type="Texture2D" uid="uid://ilsfia2lw7us" path="res://assets/icons/back.png" id="2_7l8mc"]
 
 [node name="SelectLevel" type="Control" unique_id=39339049]

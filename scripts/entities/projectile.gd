@@ -4,6 +4,8 @@ extends Area2D
 @export var speed: float = 400.0
 var damage: float = 10.0
 var target: Enemy = null
+# Thêm hằng số đường dẫn VFX ở đầu file projectile.gd:
+const EXPLOSION_FX_PATH: String = "res://scenes/effects/explosion_fx.tscn"
 
 func _ready() -> void:
 	# Kết nối tín hiệu va chạm bằng code nếu chưa nối qua giao diện Editor
@@ -41,5 +43,17 @@ func _on_area_entered(area: Area2D) -> void:
 
 ## Gây sát thương và giải phóng Node đạn
 func hit_target(enemy: Enemy) -> void:
+	AudioManager.play_sfx("projectile_hit")
+	_spawn_hit_vfx()
 	enemy.take_damage(damage)
 	queue_free()
+	
+func _spawn_hit_vfx() -> void:
+	if not ResourceLoader.exists(EXPLOSION_FX_PATH):
+		return
+	var fx_scene: PackedScene = load(EXPLOSION_FX_PATH) as PackedScene
+	if fx_scene:
+		var fx: CPUParticles2D = fx_scene.instantiate() as CPUParticles2D
+		fx.global_position = global_position
+		fx.scale = Vector2(0.7, 0.7) # Nổ nhỏ vừa phải khi trúng đạn
+		get_tree().current_scene.add_child(fx)
