@@ -6,8 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_yq4qv"]
 script = ExtResource("2_pltm8")
+wave_index = 2
 enemy_data = ExtResource("3_vmdb4")
-enemy_count = 1
+enemy_count = 2
 metadata/_custom_type_script = "uid://t327orvwtonh"
 
 [resource]

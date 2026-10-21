@@ -114,7 +114,7 @@ func shoot() -> void:
 		level_node.add_child(proj_instance)
 	else:
 		get_parent().add_child(proj_instance)
-
+	AudioManager.play_sfx("tower_shoot")
 		
 ## Hàm gán Texture tương ứng với level hiện tại
 func _update_visual() -> void:

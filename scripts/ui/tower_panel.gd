@@ -291,6 +291,7 @@ func request_place_tower(world_pos: Vector2) -> bool:
 		level_node.add_child(tower_instance)
 		
 	grid_system.register_tower(cell_pos, tower_instance)
+	AudioManager.play_sfx("tower_place")
 	cancel_preview()
 	print("[Xây dựng] Đặt tháp thành công tại ô: ", cell_pos)
 	return true

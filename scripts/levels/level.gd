@@ -62,6 +62,8 @@ var is_game_over: bool = false
 @onready var sfx_slider: HSlider = find_child("SfxSlider", true, false) as HSlider
 @onready var close_settings_btn: Button = find_child("CloseSettingsBtn", true, false) as Button
 func _ready() -> void:
+	AudioManager.play_bgm("battle")
+	
 	# Kết nối sự kiện của các Timer
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	wave_countdown_timer.timeout.connect(_on_wave_countdown_timeout)
@@ -174,6 +176,7 @@ func start_wave(index: int) -> void:
 	
 	wave_changed.emit(current_wave, level_data.wave_configuration.size())
 	print("=== BẮT ĐẦU WAVE ", current_wave, " ===")
+	AudioManager.play_sfx("wave_start")
 	
 	# Kích hoạt chu trình sinh quái
 	spawn_wave_routine(current_wave_data)
@@ -280,6 +283,7 @@ func _on_level_victory() -> void:
 	
 	var stars: int = calculate_stars()
 	print(">>> CHIẾN THẮNG! Số sao đạt được: ", stars, " <<<")
+	AudioManager.play_sfx("victory")
 	
 	game_won.emit()
 	show_result_popup(true, stars)
@@ -290,6 +294,7 @@ func _on_base_hp_depleted() -> void:
 	if is_game_over:
 		return
 	is_game_over = true
+	AudioManager.play_sfx("defeat")
 	
 	print(">>> THẤT BẠI - NHÀ CHÍNH SỤP ĐỔ! <<<")
 	spawn_timer.stop()
