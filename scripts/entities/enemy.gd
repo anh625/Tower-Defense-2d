@@ -15,7 +15,7 @@ var freeze_timer: float = 0.0
 # Thêm hằng số đường dẫn VFX ở đầu file enemy.gd:
 const EXPLOSION_FX_PATH: String = "res://scenes/effects/explosion_fx.tscn"
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
 
 func _ready() -> void:
 	add_to_group("enemies")
