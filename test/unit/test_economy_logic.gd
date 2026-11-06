@@ -48,7 +48,7 @@ func before_each() -> void:
 	_tower_data.cost = 100
 	_tower_data.max_level = 3
 	_tower_data.upgrade_cost = [50, 100]
-	_tower_data.base_damage = [15.0, 25.0, 40.0]
+	_tower_data.base_damage = [15, 25, 40]
 	_tower_data.attack_range = [180.0, 200.0, 220.0]
 	_tower_data.attack_speed = [1.0, 1.2, 1.5]
 

@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://4qgdmsmaowal" path="res://assets/Sprites/Towers/Barrack/barrack_level_1 (1).png" id="3_qs41s"]
 [ext_resource type="Texture2D" uid="uid://ppqh1hcwitwe" path="res://assets/Sprites/Towers/Barrack/barrack_level_2 (1).png" id="4_fr7eg"]
 [ext_resource type="Texture2D" uid="uid://d28qfchsxbxpp" path="res://assets/Sprites/Towers/Barrack/barrack_level_3 (1).png" id="5_70pr7"]
+[ext_resource type="Texture2D" uid="uid://d4dkvd2qkomsy" path="res://assets/Sprites/Towers/Barrack/knight_level_1.png" id="6_q0ffq"]
+[ext_resource type="Texture2D" uid="uid://xhgd4nhfmtnu" path="res://assets/Sprites/Towers/Barrack/knight_level_2.png" id="7_lwnhp"]
+[ext_resource type="Texture2D" uid="uid://4b8r41nbasom" path="res://assets/Sprites/Towers/Barrack/knight_level_3.png" id="8_ayadm"]
 
 [resource]
 script = ExtResource("1_l75o3")
@@ -12,9 +15,10 @@ tower_id = "tower_barrack"
 tower_name = "Tower Barrack"
 cost = 120
 sprites = Array[Texture2D]([ExtResource("3_qs41s"), ExtResource("4_fr7eg"), ExtResource("5_70pr7")])
-base_damage = Array[int]([22, 40, 68])
-attack_range = Array[float]([200.0, 230.0, 260.0])
-attack_speed = Array[float]([1.0, 1.2, 1.5])
+unit_sprites = Array[Texture2D]([ExtResource("6_q0ffq"), ExtResource("7_lwnhp"), ExtResource("8_ayadm")])
+base_damage = Array[int]([26, 42, 65])
+attack_range = Array[float]([204.44, 231.11, 266.67])
+attack_speed = Array[float]([0.9, 1.1, 1.3])
 upgrade_cost = Array[int]([80, 130])
 projectile_scene = ExtResource("1_3lsxa")
 metadata/_custom_type_script = "uid://cf8dlb05wx22d"
