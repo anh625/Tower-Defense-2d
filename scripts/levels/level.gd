@@ -20,10 +20,13 @@ var alive_enemies_count: int = 0
 var current_hp: int = 20
 var current_golds: int = 250
 
-## Quản lý quá trình spawn nội bộ
+## Quản lý quá trình spawn nội bộ theo SubWaveData
 var current_wave_data: WaveData = null
+var current_sub_wave_index: int = 0
+var current_sub_wave: SubWaveData = null
 var enemies_remaining_to_spawn: int = 0
 var is_wave_in_progress: bool = false
+var is_all_sub_waves_spawned: bool = false
 
 # Thêm biến cờ để tránh kích hoạt Thắng/Thua 2 lần cùng lúc
 var is_game_over: bool = false
@@ -131,7 +134,9 @@ func initialize_level(data: LevelData) -> void:
 	alive_enemies_changed.emit(0)
 	
 	# Bắt đầu đếm ngược 3 giây trước đợt quái đầu tiên
-	start_wave_countdown(3.0)
+	#start_wave_countdown(3.0)
+	
+	early_wave_btn.text = "Bắt đầu"
 
 
 ## Bắt đầu đếm ngược giữa các Wave
@@ -169,7 +174,10 @@ func start_wave(index: int) -> void:
 		
 	if index > level_data.wave_configuration.size():
 		return
-		
+	
+	early_wave_btn.visible = false
+	early_wave_btn.text = "Gọi Wave Sớm"
+	
 	current_wave = index
 	is_wave_in_progress = true
 	current_wave_data = level_data.wave_configuration[current_wave - 1]
@@ -182,47 +190,90 @@ func start_wave(index: int) -> void:
 	spawn_wave_routine(current_wave_data)
 
 
-## Chuẩn bị vòng lặp sinh quái
+## Khởi động chu trình duyệt qua các SubWaveData trong WaveData
 func spawn_wave_routine(wave: WaveData) -> void:
-	enemies_remaining_to_spawn = wave.enemy_count
-	# Bắn quái đầu tiên ngay lập tức, sau đó Timer sẽ lo các con tiếp theo
+	if not wave or wave.sub_waves.is_empty():
+		push_warning("[Level] Wave ", current_wave, " không có SubWaveData nào!")
+		is_all_sub_waves_spawned = true
+		_check_wave_completion()
+		return
+		
+	current_sub_wave_index = 0
+	is_all_sub_waves_spawned = false
+	_start_sub_wave(current_sub_wave_index)
+
+## Bắt đầu một tốp quái con (SubWave) theo chỉ số
+func _start_sub_wave(sub_idx: int) -> void:
+	if sub_idx >= current_wave_data.sub_waves.size():
+		is_all_sub_waves_spawned = true
+		enemies_remaining_to_spawn = 0
+		spawn_timer.stop()
+		_check_wave_completion()
+		return
+		
+	current_sub_wave = current_wave_data.sub_waves[sub_idx]
+	
+	# Nếu tốp quái bị rỗng hoặc số lượng <= 0 thì bỏ qua sang tốp kế tiếp
+	if not current_sub_wave or current_sub_wave.enemy_count <= 0:
+		current_sub_wave_index += 1
+		_start_sub_wave(current_sub_wave_index)
+		return
+		
+	enemies_remaining_to_spawn = current_sub_wave.enemy_count
 	_spawn_next_enemy_in_wave()
 
-
+## Sinh từng con quái trong SubWave hiện tại và hẹn giờ cho nhịp tiếp theo
 func _spawn_next_enemy_in_wave() -> void:
 	if enemies_remaining_to_spawn > 0:
-		spawn_single_enemy(current_wave_data)
+		spawn_single_enemy(current_sub_wave)
 		enemies_remaining_to_spawn -= 1
 		
 		if enemies_remaining_to_spawn > 0:
-			spawn_timer.start(current_wave_data.spawn_interval)
-	else:
-		spawn_timer.stop()
+			# Còn quái trong cùng tốp -> Chờ theo spawn_interval
+			spawn_timer.start(max(0.05, current_sub_wave.spawn_interval))
+		else:
+			# Đã sinh xong con cuối cùng của tốp hiện tại
+			if current_sub_wave_index + 1 < current_wave_data.sub_waves.size():
+				# Còn tốp tiếp theo -> Chờ theo delay_after_subwave
+				var delay: float = max(0.05, current_sub_wave.delay_after_subwave)
+				spawn_timer.start(delay)
+			else:
+				# Đã sinh hết tốp cuối cùng của Wave
+				is_all_sub_waves_spawned = true
+				spawn_timer.stop()
+				_check_wave_completion()
 
 
+
+## Sự kiện khi SpawnTimer đếm ngược xong
 func _on_spawn_timer_timeout() -> void:
-	_spawn_next_enemy_in_wave()
+	if enemies_remaining_to_spawn > 0:
+		_spawn_next_enemy_in_wave()
+	else:
+		# Hết thời gian nghỉ delay_after_subwave -> Chuyển sang SubWave kế tiếp
+		current_sub_wave_index += 1
+		_start_sub_wave(current_sub_wave_index)
 
 
-## Khởi tạo 1 thực thể quái vật và đưa vào đường chạy Path2D
-func spawn_single_enemy(wave: WaveData) -> void:
+#### Khởi tạo 1 thực thể quái vật từ SubWaveData và đưa vào Path2D
+func spawn_single_enemy(sub_wave: SubWaveData) -> void:
 	if not enemy_base_scene:
-		push_error("Level: Chưa gán enemy_base_scene!")
+		push_error("[Level] Chưa gán enemy_base_scene vào Node Level trên Inspector!")
 		return
 		
 	var enemy_instance = enemy_base_scene.instantiate() as Enemy
 	if not enemy_instance:
 		return
 		
-	# Gán dữ liệu EnemyData từ WaveData vào quái
-	enemy_instance.data = wave.enemy_data
+	if sub_wave and sub_wave.enemy_data:
+		enemy_instance.data = sub_wave.enemy_data
+	else:
+		push_error("[Level] SubWaveData chưa được gán EnemyData (.tres)!")
+		
+	enemy_path.add_child(enemy_instance)
 	
-	# Kết nối tín hiệu của quái để theo dõi vòng đời
 	enemy_instance.died.connect(_on_enemy_died)
 	enemy_instance.reached_base.connect(_on_enemy_reached_base)
-	
-	# Đưa quái vào làm con của Path2D để nó tự trượt trên đường ray
-	enemy_path.add_child(enemy_instance)
 	
 	alive_enemies_count += 1
 	alive_enemies_changed.emit(alive_enemies_count)
@@ -246,23 +297,22 @@ func _on_enemy_reached_base(damage: int) -> void:
 		_check_enemy_cleared()
 
 
-## Giảm biến đếm quái sống và kiểm tra hoàn thành đợt
+## Giảm biến đếm quái sống khi quái chết hoặc vào nhà chính
 func _check_enemy_cleared() -> void:
-	if is_game_over:
-		return
-
-	alive_enemies_count = max(0, alive_enemies_count - 1)
+	alive_enemies_count -= 1
 	alive_enemies_changed.emit(alive_enemies_count)
-	
-	# Nếu đã sinh hết quái của đợt hiện tại VÀ không còn quái nào sống trên bản đồ
-	if enemies_remaining_to_spawn <= 0 and alive_enemies_count == 0 and is_wave_in_progress:
-		is_wave_in_progress = false
+	_check_wave_completion()
+
+## Kiểm tra điều kiện hoàn thành toàn bộ Wave
+func _check_wave_completion() -> void:
+	if is_all_sub_waves_spawned and alive_enemies_count <= 0 and is_wave_in_progress:
+		alive_enemies_count = 0
 		_completed_wave()
-
-
+		
 ## Hoàn thành một đợt quái
 func _completed_wave() -> void:
 	print("Đã dọn sạch Wave ", current_wave)
+	early_wave_btn.visible = true
 	
 	if current_wave < level_data.wave_configuration.size():
 		# Chưa phải wave cuối -> Đếm ngược sang wave kế

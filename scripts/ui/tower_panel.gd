@@ -33,14 +33,16 @@ var selected_tower: Tower = null
 @onready var btn_upgrade: Button = find_child("BtnUpgrade", true, false) as Button
 @onready var btn_sell: Button = find_child("BtnSell", true, false) as Button
 @onready var btn_close: Button = find_child("BtnClose", true, false) as Button
-
+@onready var btn_target_mode: Button = find_child("BtnTargetMode", true, false) as Button
 
 func _ready() -> void:
 	if not level_node:
 		level_node = get_parent() as Level
 	if not grid_system and level_node:
 		grid_system = level_node.get_node_or_null("GridSystem") as GridSystem
-
+	if btn_target_mode:
+		btn_target_mode.pressed.connect(_on_target_mode_pressed)
+		
 	preview_indicator.visible = false
 	preview_sprite.position = Vector2(0, -44)
 	
@@ -185,6 +187,9 @@ func _update_upgrade_popup_ui() -> void:
 			int(selected_tower.get_current_range()),
 			selected_tower.get_current_attack_speed()
 		]
+		var skill_desc: String = selected_tower.get_skill_description()
+		if skill_desc != "":
+			stats_label.text += "\n" + skill_desc
 		
 	if btn_upgrade:
 		if selected_tower.is_max_level():
@@ -197,7 +202,9 @@ func _update_upgrade_popup_ui() -> void:
 			
 	if btn_sell:
 		btn_sell.text = "Bán (+%dG)" % selected_tower.get_sell_refund()
-
+		
+	if btn_target_mode:
+		btn_target_mode.text = "Mục tiêu: " + selected_tower.get_target_mode_name()
 
 ## Xử lý khi bấm nút "Nâng cấp (Upgrade)" (UC-4.2)
 func _on_upgrade_pressed() -> void:
@@ -327,3 +334,14 @@ func _on_level_gold_changed(new_gold: int) -> void:
 	# Cập nhật lại trạng thái nút Nâng cấp nếu Popup đang mở
 	if is_instance_valid(selected_tower) and upgrade_popup and upgrade_popup.visible:
 		_update_upgrade_popup_ui()
+		
+## Hàm xử lý khi người chơi bấm vào nút đổi mục tiêu
+func _on_target_mode_pressed() -> void:
+	if not selected_tower:
+		return
+		
+	# Xoay vòng sang chế độ tiếp theo (Đi đầu -> Đi cuối -> Mạnh nhất -> Yếu nhất)
+	selected_tower.cycle_target_mode()
+	
+	# Cập nhật lại chữ trên Popup và căn lại kích thước bảng
+	_update_upgrade_popup_ui()

@@ -2,17 +2,20 @@
 
 [ext_resource type="Script" uid="uid://df8jbem2nwe7l" path="res://scripts/custom_resources/level_data.gd" id="1_y1j1h"]
 [ext_resource type="Script" uid="uid://t327orvwtonh" path="res://scripts/custom_resources/wave_data.gd" id="2_pltm8"]
-[ext_resource type="Resource" uid="uid://bs1w8s2wdk4wd" path="res://resources/data/enemies/ufo_scout.tres" id="3_vmdb4"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="3_4opeq"]
+[ext_resource type="Resource" uid="uid://gba227s0mfcm" path="res://resources/data/sub_waves/tanker_sub_wave.tres" id="4_26pek"]
+[ext_resource type="Resource" uid="uid://7mfswtpig0df" path="res://resources/data/sub_waves/soldier_sub_wave.tres" id="5_t5gn0"]
+[ext_resource type="Resource" uid="uid://8rxwp85321sj" path="res://resources/data/sub_waves/speeder_sub_wave.tres" id="6_26pek"]
 
 [sub_resource type="Resource" id="Resource_yq4qv"]
 script = ExtResource("2_pltm8")
 wave_index = 2
-enemy_data = ExtResource("3_vmdb4")
-enemy_count = 2
+sub_waves = Array[ExtResource("3_4opeq")]([ExtResource("4_26pek"), ExtResource("5_t5gn0"), ExtResource("4_26pek"), ExtResource("5_t5gn0"), ExtResource("4_26pek"), ExtResource("5_t5gn0"), ExtResource("4_26pek"), ExtResource("5_t5gn0"), ExtResource("6_26pek")])
 metadata/_custom_type_script = "uid://t327orvwtonh"
 
 [resource]
 script = ExtResource("1_y1j1h")
 level_name = "Sprint"
+starting_gold = 1000
 wave_configuration = Array[ExtResource("2_pltm8")]([SubResource("Resource_yq4qv")])
 metadata/_custom_type_script = "uid://df8jbem2nwe7l"

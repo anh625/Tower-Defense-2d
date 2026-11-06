@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubWaveData" format=3 uid="uid://7mfswtpig0df"]
+
+[ext_resource type="Resource" uid="uid://dtk3yi8wnkxa1" path="res://resources/data/enemies/ufo_soldier.tres" id="1_5782p"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="2_xfyun"]
+
+[resource]
+script = ExtResource("2_xfyun")
+enemy_data = ExtResource("1_5782p")
+spawn_interval = 0.3
+delay_after_subwave = 1.0
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"

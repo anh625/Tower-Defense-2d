@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://8qdx2b731ngj" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(6).png" id="11_7wjjj"]
 [ext_resource type="Texture2D" uid="uid://bp1ioac0jr5y0" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(7).png" id="12_jqu2d"]
 [ext_resource type="Texture2D" uid="uid://vvwiqlrtyorg" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(8).png" id="13_ug1pp"]
-[ext_resource type="Texture2D" uid="uid://cob8pow3kca3m" path="res://assets/icons/setting.png" id="14_osutr"]
+[ext_resource type="Texture2D" uid="uid://cob8pow3kca3m" path="res://assets/icons/Setting.png" id="14_osutr"]
 [ext_resource type="Texture2D" uid="uid://bsmh02dkifepx" path="res://assets/icons/pause.png" id="15_bc8pi"]
 [ext_resource type="PackedScene" uid="uid://ccqxp05djnofa" path="res://scenes/ui/settings_popup.tscn" id="19_4vntt"]
 [ext_resource type="PackedScene" uid="uid://c4vx16jo68fg5" path="res://scenes/managers/grid_system.tscn" id="19_ioey5"]

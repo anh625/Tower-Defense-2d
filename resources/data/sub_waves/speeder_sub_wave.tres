@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SubWaveData" format=3 uid="uid://8rxwp85321sj"]
+
+[ext_resource type="Resource" uid="uid://bv162glh43yom" path="res://resources/data/enemies/ufo_speeder.tres" id="1_ygov5"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="2_vrcm2"]
+
+[resource]
+script = ExtResource("2_vrcm2")
+enemy_data = ExtResource("1_ygov5")
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
