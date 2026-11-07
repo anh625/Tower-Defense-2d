@@ -32,6 +32,12 @@ func _ready() -> void:
 		_init_audio_sliders()
 		if close_settings_btn:
 			close_settings_btn.pressed.connect(func(): settings_popup.visible = false)
+			
+	# Lắng nghe kết quả nạp file save từ SaveManager
+	if not SaveManager.save_imported_success.is_connected(_on_save_imported_success):
+		SaveManager.save_imported_success.connect(_on_save_imported_success)
+	if not SaveManager.save_import_failed.is_connected(_on_save_import_failed):
+		SaveManager.save_import_failed.connect(_on_save_import_failed)
 
 
 ## Chuyển sang màn hình Chọn Level (theo Class Diagram)
@@ -45,13 +51,23 @@ func _on_setting_pressed() -> void:
 		settings_popup.visible = not settings_popup.visible
 
 
-## Tải file save lên (chừa sẵn hàm theo Class Diagram cho Sprint 7)
+## Kích hoạt tải file save (.json) lên từ trình duyệt hoặc đọc từ máy (SCRUM-77)
 func on_upload_save_pressed() -> void:
-	print("[MainMenu] Tính năng Load Save sẽ kết nối với SaveManager ở Sprint 7.")
+	SaveManager.trigger_web_file_upload()
 
 
-## Xuất file save về máy (chừa sẵn hàm theo Class Diagram cho Sprint 7)
+## Xuất file savegame.json về máy người chơi (SCRUM-76)
 func on_download_save_pressed() -> void:
+	SaveManager.export_save_to_file()
+
+
+func _on_save_imported_success() -> void:
+	print("[MainMenu] Nạp dữ liệu tiến trình thành công!")
+	play_game()
+
+
+func _on_save_import_failed(error_msg: String) -> void:
+	push_warning("[MainMenu] Lỗi nạp file save: " + error_msg)
 	print("[MainMenu] Tính năng Export Save sẽ kết nối với SaveManager ở Sprint 7.")
 
 

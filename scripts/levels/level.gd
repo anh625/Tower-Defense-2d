@@ -312,10 +312,10 @@ func _check_wave_completion() -> void:
 ## Hoàn thành một đợt quái
 func _completed_wave() -> void:
 	print("Đã dọn sạch Wave ", current_wave)
-	early_wave_btn.visible = true
 	
 	if current_wave < level_data.wave_configuration.size():
 		# Chưa phải wave cuối -> Đếm ngược sang wave kế
+		early_wave_btn.visible = true
 		start_wave_countdown(5.0)
 	else:
 		# Đã vượt qua Wave cuối cùng
@@ -334,6 +334,9 @@ func _on_level_victory() -> void:
 	var stars: int = calculate_stars()
 	print(">>> CHIẾN THẮNG! Số sao đạt được: ", stars, " <<<")
 	AudioManager.play_sfx("victory")
+	# Lưu số sao đạt được và mở khóa màn chơi tiếp theo
+	if level_data:
+		SaveManager.save_progress(level_data.level_id, stars)
 	
 	game_won.emit()
 	show_result_popup(true, stars)
@@ -410,7 +413,8 @@ func show_result_popup(is_victory: bool, stars: int) -> void:
 		title_label.text = "CHIẾN THẮNG!"
 		stars_label.visible = true
 		stars_label.text = "Đánh giá: " + "★ ".repeat(stars) + "☆ ".repeat(3 - stars)
-		next_level_btn.visible = true
+		# Chỉ hiện nút Màn tiếp nếu chưa phải màn cuối (Màn 3)
+		next_level_btn.visible = (level_data != null and level_data.level_id < 3)
 	else:
 		title_label.text = "THẤT BẠI!"
 		stars_label.visible = false
