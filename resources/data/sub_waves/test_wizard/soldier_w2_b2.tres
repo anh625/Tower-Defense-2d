@@ -6,6 +6,5 @@
 [resource]
 script = ExtResource("2_xfyun")
 enemy_data = ExtResource("1_5782p")
-spawn_interval = 0.3
-delay_after_subwave = 1.0
+delay_after_subwave = 0.5
 metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"

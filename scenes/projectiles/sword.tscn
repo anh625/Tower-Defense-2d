@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://p27qtrbjcp6i"]
 
 [ext_resource type="PackedScene" uid="uid://dka505het7hvp" path="res://scenes/projectiles/projectile_base.tscn" id="1_pnn81"]
-[ext_resource type="Texture2D" uid="uid://bts44qq22kdl1" path="res://assets/Sprites/Towers/Barrack/sword.png" id="2_pnn81"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d17ki"]
-radius = 14.999998
-height = 49.999996
+radius = 82.49999
+height = 244.99997
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4h1tn"]
+load_path = "res://.godot/imported/sword.png-fad2507624314f0dce394dcfb226866c.ctex"
 
 [node name="Sword" unique_id=1004045744 instance=ExtResource("1_pnn81")]
 
@@ -13,4 +15,6 @@ height = 49.999996
 shape = SubResource("CapsuleShape2D_d17ki")
 
 [node name="Sprite2D" parent="." index="2" unique_id=742201663]
-texture = ExtResource("2_pnn81")
+position = Vector2(0, 0.49999857)
+scale = Vector2(5, 5)
+texture = SubResource("CompressedTexture2D_4h1tn")

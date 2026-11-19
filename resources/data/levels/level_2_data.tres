@@ -1,0 +1,136 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://5q3hekfs8jix"]
+
+[ext_resource type="Script" uid="uid://df8jbem2nwe7l" path="res://scripts/custom_resources/level_data.gd" id="1_8bkqm"]
+[ext_resource type="Script" uid="uid://t327orvwtonh" path="res://scripts/custom_resources/wave_data.gd" id="2_osvdw"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="3_mmd0p"]
+[ext_resource type="Resource" uid="uid://bs1w8s2wdk4wd" path="res://resources/data/enemies/ufo_scout.tres" id="5_qj12d"]
+[ext_resource type="Resource" uid="uid://bs7s1yjp0hj8s" path="res://resources/data/enemies/ufo_drone.tres" id="6_d52xv"]
+[ext_resource type="Resource" uid="uid://bv162glh43yom" path="res://resources/data/enemies/ufo_speeder.tres" id="6_wvdcy"]
+[ext_resource type="Resource" uid="uid://dtk3yi8wnkxa1" path="res://resources/data/enemies/ufo_soldier.tres" id="7_d52xv"]
+[ext_resource type="Resource" uid="uid://dagm8b5dsyfj7" path="res://resources/data/enemies/ufo_tanker.tres" id="8_c8hge"]
+[ext_resource type="Resource" uid="uid://0wh213lp75ro" path="res://resources/data/enemies/ufo_cruiser.tres" id="9_yckxp"]
+
+[sub_resource type="Resource" id="Resource_t5gn0"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("5_qj12d")
+enemy_count = 4
+spawn_interval = 2.5
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_wfffa"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("6_d52xv")
+path_spawn_index = 1
+enemy_count = 3
+spawn_interval = 1.5
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_ja247"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("6_d52xv")
+path_spawn_index = 1
+spawn_interval = 0.8
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_morta"]
+script = ExtResource("2_osvdw")
+sub_waves = Array[ExtResource("3_mmd0p")]([SubResource("Resource_t5gn0"), SubResource("Resource_t5gn0"), SubResource("Resource_wfffa"), SubResource("Resource_ja247"), SubResource("Resource_ja247")])
+metadata/_custom_type_script = "uid://t327orvwtonh"
+
+[sub_resource type="Resource" id="Resource_tdsym"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("5_qj12d")
+enemy_count = 4
+spawn_interval = 0.9
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_71gwg"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("6_wvdcy")
+enemy_count = 1
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_rnxcx"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("6_d52xv")
+path_spawn_index = 1
+spawn_interval = 0.8
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_r32qw"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("7_d52xv")
+path_spawn_index = 1
+enemy_count = 4
+spawn_interval = 3.0
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_3agsp"]
+script = ExtResource("2_osvdw")
+sub_waves = Array[ExtResource("3_mmd0p")]([SubResource("Resource_tdsym"), SubResource("Resource_tdsym"), SubResource("Resource_71gwg"), SubResource("Resource_rnxcx"), SubResource("Resource_rnxcx"), SubResource("Resource_r32qw")])
+metadata/_custom_type_script = "uid://t327orvwtonh"
+
+[sub_resource type="Resource" id="Resource_a1nom"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("6_wvdcy")
+enemy_count = 4
+spawn_interval = 3.0
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_i7yhg"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("7_d52xv")
+path_spawn_index = 1
+enemy_count = 4
+spawn_interval = 1.3
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_irxe8"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("8_c8hge")
+path_spawn_index = 1
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_jcbca"]
+script = ExtResource("2_osvdw")
+sub_waves = Array[ExtResource("3_mmd0p")]([SubResource("Resource_a1nom"), SubResource("Resource_a1nom"), SubResource("Resource_i7yhg"), SubResource("Resource_i7yhg"), SubResource("Resource_irxe8")])
+metadata/_custom_type_script = "uid://t327orvwtonh"
+
+[sub_resource type="Resource" id="Resource_5roq7"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("7_d52xv")
+enemy_count = 4
+spawn_interval = 1.3
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_fy6j5"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("6_wvdcy")
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_3q0oa"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("8_c8hge")
+path_spawn_index = 1
+enemy_count = 4
+spawn_interval = 4.0
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_sbwwp"]
+script = ExtResource("3_mmd0p")
+enemy_data = ExtResource("9_yckxp")
+path_spawn_index = 1
+enemy_count = 1
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_yv0hg"]
+script = ExtResource("2_osvdw")
+sub_waves = Array[ExtResource("3_mmd0p")]([SubResource("Resource_5roq7"), SubResource("Resource_5roq7"), SubResource("Resource_fy6j5"), SubResource("Resource_3q0oa"), SubResource("Resource_sbwwp")])
+metadata/_custom_type_script = "uid://t327orvwtonh"
+
+[resource]
+script = ExtResource("1_8bkqm")
+level_id = 2
+level_name = "Sa Mạc Chia Cắt"
+wave_configuration = Array[ExtResource("2_osvdw")]([SubResource("Resource_morta"), SubResource("Resource_3agsp"), SubResource("Resource_jcbca"), SubResource("Resource_yv0hg")])
+metadata/_custom_type_script = "uid://df8jbem2nwe7l"

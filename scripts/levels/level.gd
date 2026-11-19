@@ -1,7 +1,7 @@
 class_name Level
 extends Node2D
 
-## Tín hiệu thông báo tiến trình cho UI/HUD (nếu có sau này)
+## Tín hiệu thông báo tiến trình cho UI/HUD 
 signal wave_changed(current_wave: int, total_waves: int)
 signal alive_enemies_changed(count: int)
 signal gold_changed(current_gold: int)
@@ -19,21 +19,33 @@ var current_wave: int = 0
 var alive_enemies_count: int = 0
 var current_hp: int = 20
 var current_golds: int = 250
+var is_fisrt_start_wave_countdown_in_wave: bool = true
+
+##Quản lý nơi quái xuất hiện
+var enemy_paths: Array[Path2D] = []
+var spawn_timers: Array[Timer] = []
 
 ## Quản lý quá trình spawn nội bộ theo SubWaveData
-var current_wave_data: WaveData = null
-var current_sub_wave_index: int = 0
-var current_sub_wave: SubWaveData = null
-var enemies_remaining_to_spawn: int = 0
-var is_wave_in_progress: bool = false
-var is_all_sub_waves_spawned: bool = false
+var current_wave_data: WaveData = null #Data wave hiện tại
+var sub_waves_paths = []
+var current_sub_waves_index_paths: Array[int] = [] #Chỉ số sub_wave hiện tại của mỗi đường
+var current_sub_wave_paths: Array[SubWaveData] = [] #Data sub_wave hiện tại của mỗi đường
+#var current_sub_wave: SubWaveData = null
+#var enemies_remaining_to_spawn: int = 0
+var enemies_remaining_to_spawn_paths: Array[int] = []
+#var is_wave_in_progress: bool = false
+var paths_spawned_count: int = INT8_MAX
+
+
+#Thời gian còn lại trước khi bắt đầu wave mới
+#var time_left_next_wave: float = 0
 
 # Thêm biến cờ để tránh kích hoạt Thắng/Thua 2 lần cùng lúc
 var is_game_over: bool = false
 
 ## Tham chiếu Node con
 @onready var enemy_path: Path2D = find_child("EnemyPath", true, false) as Path2D
-@onready var spawn_timer: Timer = find_child("SpawnTimer", true, false) as Timer
+#@onready var spawn_timer: Timer = find_child("SpawnTimer", true, false) as Timer
 @onready var wave_countdown_timer: Timer = find_child("WaveCountdownTimer", true, false) as Timer
 @onready var hp_label: Label = find_child("HpLabel", true, false) as Label
 @onready var gold_label: Label = find_child("GoldLabel", true, false) as Label
@@ -65,15 +77,35 @@ var is_game_over: bool = false
 @onready var sfx_slider: HSlider = find_child("SfxSlider", true, false) as HSlider
 @onready var close_settings_btn: Button = find_child("CloseSettingsBtn", true, false) as Button
 func _ready() -> void:
-	AudioManager.play_bgm("battle")
+	#Lấy danh sách đường đi của quái
+	enemy_paths.clear()
+	for child in get_children():
+		if child is Path2D:
+			enemy_paths.append(child)
+	if enemy_paths.is_empty() and enemy_path:
+		enemy_paths.append(enemy_path)
+	
+	#Lấy danh sách bộ đếm thời gian quái xuất hiện
+	spawn_timers.clear()
+	for node in get_tree().get_nodes_in_group("spawn_timers"):
+		if node is Timer:
+			#node.process_mode = Node.PROCESS_MODE_PAUSABLE
+			spawn_timers.append(node as Timer)
+	
+	if enemy_paths.size() != spawn_timers.size():
+		push_error("enemy_paths.size() != spawn_timers.size() in group('spawn_timers')")
 	
 	# Kết nối sự kiện của các Timer
-	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+	for i in range(spawn_timers.size()):
+		spawn_timers[i].timeout.connect(_on_spawn_timer_timeout.bind(i))
+	
+	#wave_countdown_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
 	wave_countdown_timer.timeout.connect(_on_wave_countdown_timeout)
 	
 	# Kết nối nút Gọi Wave Sớm (nếu có)
 	if early_wave_btn:
 		early_wave_btn.pressed.connect(call_wave_early)
+		
 	# Tự động cập nhật chữ trên HUD mỗi khi phát tín hiệu
 	gold_changed.connect(_on_gold_changed_ui)
 	base_hp_changed.connect(_on_base_hp_changed_ui)
@@ -113,6 +145,8 @@ func _ready() -> void:
 		_init_audio_sliders()
 		if close_settings_btn:
 			close_settings_btn.pressed.connect(_on_close_settings_pressed)
+	
+	AudioManager.play_bgm("battle_%d"%level_data.level_id)
 
 
 ## Khởi tạo trạng thái ban đầu của màn chơi
@@ -151,20 +185,25 @@ func _on_wave_countdown_timeout() -> void:
 
 
 ## Người chơi chủ động gọi đợt quái sớm (Call Wave Early)
-func call_wave_early() -> void:
-	if is_wave_in_progress:
+func call_wave_early(time_delay: float = 1, time_left_next_wave: float = 0) -> void:
+	if current_wave >= level_data.wave_configuration.size() or \
+	paths_spawned_count < enemy_paths.size():
 		return
+		
+	early_wave_btn.visible = false
 	
 	# Tính thưởng vàng gọi sớm dựa vào thời gian còn lại của Timer
-	var time_left: float = wave_countdown_timer.time_left
-	var early_bonus: int = int(time_left * 2) # Ví dụ: mỗi giây dư được +2 vàng
+	var time_left: float = maxf(time_left_next_wave, wave_countdown_timer.time_left)
+	var early_bonus: int = int(time_left) # Ví dụ: mỗi giây dư được +2 vàng
 	current_golds += early_bonus
+	
 	#$GoldLabel.text = "Gold: " + str(current_golds)
 	gold_changed.emit(current_golds)
-	
 	wave_countdown_timer.stop()
-	start_wave(current_wave + 1)
-
+	
+	get_tree().create_timer(time_delay).timeout.connect(func():
+		start_wave(current_wave + 1)
+	)
 
 ## Bắt đầu một Wave cụ thể
 func start_wave(index: int) -> void:
@@ -177,9 +216,9 @@ func start_wave(index: int) -> void:
 	
 	early_wave_btn.visible = false
 	early_wave_btn.text = "Gọi Wave Sớm"
-	
+	is_fisrt_start_wave_countdown_in_wave = true
 	current_wave = index
-	is_wave_in_progress = true
+	#is_wave_in_progress = true
 	current_wave_data = level_data.wave_configuration[current_wave - 1]
 	
 	wave_changed.emit(current_wave, level_data.wave_configuration.size())
@@ -194,65 +233,85 @@ func start_wave(index: int) -> void:
 func spawn_wave_routine(wave: WaveData) -> void:
 	if not wave or wave.sub_waves.is_empty():
 		push_warning("[Level] Wave ", current_wave, " không có SubWaveData nào!")
-		is_all_sub_waves_spawned = true
+		paths_spawned_count = enemy_paths.size()
 		_check_wave_completion()
 		return
+	
+	
+	paths_spawned_count = 0
+	sub_waves_paths.clear()
+	current_sub_waves_index_paths.clear()
+	current_sub_wave_paths.clear()
+	enemies_remaining_to_spawn_paths.clear()
+	
+	for i in range(enemy_paths.size()):
+		sub_waves_paths.append([])
+		current_sub_waves_index_paths.append(0)
+		current_sub_wave_paths.append(null)
+		enemies_remaining_to_spawn_paths.append(0)
+	
+	for sub_wave in wave.sub_waves:
+		var i = clampi(sub_wave.path_spawn_index, 0, enemy_paths.size() - 1)
+		sub_waves_paths[i].append(sub_wave)
 		
-	current_sub_wave_index = 0
-	is_all_sub_waves_spawned = false
-	_start_sub_wave(current_sub_wave_index)
+	for i in range(enemy_paths.size()):
+		_start_sub_wave(i, current_sub_waves_index_paths[i])
 
 ## Bắt đầu một tốp quái con (SubWave) theo chỉ số
-func _start_sub_wave(sub_idx: int) -> void:
-	if sub_idx >= current_wave_data.sub_waves.size():
-		is_all_sub_waves_spawned = true
-		enemies_remaining_to_spawn = 0
-		spawn_timer.stop()
+func _start_sub_wave(path_inx:int, sub_idx: int) -> void:
+	if sub_idx >= sub_waves_paths[path_inx].size():
+		paths_spawned_count = paths_spawned_count + 1
+		enemies_remaining_to_spawn_paths[path_inx] = 0
+		spawn_timers[path_inx].stop()
 		_check_wave_completion()
 		return
 		
-	current_sub_wave = current_wave_data.sub_waves[sub_idx]
+	current_sub_wave_paths[path_inx] = sub_waves_paths[path_inx][sub_idx]
 	
 	# Nếu tốp quái bị rỗng hoặc số lượng <= 0 thì bỏ qua sang tốp kế tiếp
-	if not current_sub_wave or current_sub_wave.enemy_count <= 0:
-		current_sub_wave_index += 1
-		_start_sub_wave(current_sub_wave_index)
+	if not current_sub_wave_paths[path_inx] or current_sub_wave_paths[path_inx].enemy_count <= 0:
+		current_sub_waves_index_paths[path_inx] += 1
+		_start_sub_wave(path_inx, current_sub_waves_index_paths[path_inx])
 		return
 		
-	enemies_remaining_to_spawn = current_sub_wave.enemy_count
-	_spawn_next_enemy_in_wave()
+	enemies_remaining_to_spawn_paths[path_inx] = current_sub_wave_paths[path_inx].enemy_count
+	get_tree().create_timer(current_sub_wave_paths[path_inx].\
+	delay_spawn_start_wave, false).timeout.connect(func():
+			if is_instance_valid(self):
+				_spawn_next_enemy_in_wave(path_inx)
+	)
 
 ## Sinh từng con quái trong SubWave hiện tại và hẹn giờ cho nhịp tiếp theo
-func _spawn_next_enemy_in_wave() -> void:
-	if enemies_remaining_to_spawn > 0:
-		spawn_single_enemy(current_sub_wave)
-		enemies_remaining_to_spawn -= 1
+func _spawn_next_enemy_in_wave(path_inx:int) -> void:
+	if enemies_remaining_to_spawn_paths[path_inx] > 0:
+		spawn_single_enemy(current_sub_wave_paths[path_inx])
+		enemies_remaining_to_spawn_paths[path_inx] -= 1
 		
-		if enemies_remaining_to_spawn > 0:
+		if enemies_remaining_to_spawn_paths[path_inx] > 0:
 			# Còn quái trong cùng tốp -> Chờ theo spawn_interval
-			spawn_timer.start(max(0.05, current_sub_wave.spawn_interval))
+			spawn_timers[path_inx].start(max(0.05, current_sub_wave_paths[path_inx].spawn_interval))
 		else:
 			# Đã sinh xong con cuối cùng của tốp hiện tại
-			if current_sub_wave_index + 1 < current_wave_data.sub_waves.size():
+			if current_sub_waves_index_paths[path_inx] + 1 < sub_waves_paths[path_inx].size():
 				# Còn tốp tiếp theo -> Chờ theo delay_after_subwave
-				var delay: float = max(0.05, current_sub_wave.delay_after_subwave)
-				spawn_timer.start(delay)
+				var delay: float = max(0.05, current_sub_wave_paths[path_inx].delay_after_subwave)
+				spawn_timers[path_inx].start(delay)
 			else:
 				# Đã sinh hết tốp cuối cùng của Wave
-				is_all_sub_waves_spawned = true
-				spawn_timer.stop()
+				paths_spawned_count += 1
+				spawn_timers[path_inx].stop()
 				_check_wave_completion()
 
 
 
 ## Sự kiện khi SpawnTimer đếm ngược xong
-func _on_spawn_timer_timeout() -> void:
-	if enemies_remaining_to_spawn > 0:
-		_spawn_next_enemy_in_wave()
+func _on_spawn_timer_timeout(path_inx: int = 0) -> void:
+	if enemies_remaining_to_spawn_paths[path_inx] > 0:
+		_spawn_next_enemy_in_wave(path_inx)
 	else:
 		# Hết thời gian nghỉ delay_after_subwave -> Chuyển sang SubWave kế tiếp
-		current_sub_wave_index += 1
-		_start_sub_wave(current_sub_wave_index)
+		current_sub_waves_index_paths[path_inx] += 1
+		_start_sub_wave(path_inx, current_sub_waves_index_paths[path_inx])
 
 
 #### Khởi tạo 1 thực thể quái vật từ SubWaveData và đưa vào Path2D
@@ -270,7 +329,11 @@ func spawn_single_enemy(sub_wave: SubWaveData) -> void:
 	else:
 		push_error("[Level] SubWaveData chưa được gán EnemyData (.tres)!")
 		
-	enemy_path.add_child(enemy_instance)
+	var target_path: Path2D = enemy_paths[sub_wave.path_spawn_index]
+	
+	if not enemy_paths.is_empty():
+		target_path = enemy_paths[sub_wave.path_spawn_index % enemy_paths.size()]
+	target_path.add_child(enemy_instance)
 	
 	enemy_instance.died.connect(_on_enemy_died)
 	enemy_instance.reached_base.connect(_on_enemy_reached_base)
@@ -305,9 +368,26 @@ func _check_enemy_cleared() -> void:
 
 ## Kiểm tra điều kiện hoàn thành toàn bộ Wave
 func _check_wave_completion() -> void:
-	if is_all_sub_waves_spawned and alive_enemies_count <= 0 and is_wave_in_progress:
-		alive_enemies_count = 0
-		_completed_wave()
+	if paths_spawned_count >= enemy_paths.size():
+		#print("wave_countdown_timer: " + str(wave_countdown_timer.time_left))
+		
+		if current_wave < level_data.wave_configuration.size():
+			if wave_countdown_timer.time_left<=0 and is_fisrt_start_wave_countdown_in_wave:
+				start_wave_countdown(30.0)
+				#print("wave_countdown_timer:" + str(wave_countdown_timer.time_left))
+				early_wave_btn.visible = true
+				is_fisrt_start_wave_countdown_in_wave = false
+			
+			if alive_enemies_count <= 0:
+				print("Đã dọn sạch Wave ", current_wave)
+				early_wave_btn.visible = false
+				is_fisrt_start_wave_countdown_in_wave = true
+				
+				var time_countdown  = minf(wave_countdown_timer.time_left, 1)
+				call_wave_early(time_countdown, wave_countdown_timer.time_left)
+				
+		elif alive_enemies_count <= 0:
+				_on_level_victory()
 		
 ## Hoàn thành một đợt quái
 func _completed_wave() -> void:
@@ -315,7 +395,6 @@ func _completed_wave() -> void:
 	
 	if current_wave < level_data.wave_configuration.size():
 		# Chưa phải wave cuối -> Đếm ngược sang wave kế
-		early_wave_btn.visible = true
 		start_wave_countdown(5.0)
 	else:
 		# Đã vượt qua Wave cuối cùng
@@ -328,7 +407,9 @@ func _on_level_victory() -> void:
 		return
 	is_game_over = true
 	
-	spawn_timer.stop()
+	for spawn_timer in spawn_timers:
+		spawn_timer.stop()
+	
 	wave_countdown_timer.stop()
 	
 	var stars: int = calculate_stars()
@@ -350,7 +431,9 @@ func _on_base_hp_depleted() -> void:
 	AudioManager.play_sfx("defeat")
 	
 	print(">>> THẤT BẠI - NHÀ CHÍNH SỤP ĐỔ! <<<")
-	spawn_timer.stop()
+	for spawn_timer in spawn_timers:
+		spawn_timer.stop()
+		
 	wave_countdown_timer.stop()
 	
 	game_lost.emit()
@@ -413,6 +496,7 @@ func show_result_popup(is_victory: bool, stars: int) -> void:
 		title_label.text = "CHIẾN THẮNG!"
 		stars_label.visible = true
 		stars_label.text = "Đánh giá: " + "★ ".repeat(stars) + "☆ ".repeat(3 - stars)
+		next_level_btn.visible = true
 		# Chỉ hiện nút Màn tiếp nếu chưa phải màn cuối (Màn 3)
 		next_level_btn.visible = (level_data != null and level_data.level_id < 3)
 	else:

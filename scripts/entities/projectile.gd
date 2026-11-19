@@ -9,7 +9,7 @@ var target: Enemy = null
 
 ## 1. Thuộc tính của Tháp Cung Thủ (Archer)
 var is_crit: bool = false
-var bonus_vs_fast: bool = false
+var apply_hit_armor: bool = false
 
 ## 2. Thuộc tính của Tháp Kiếm / Doanh Trại (Barrack Sword Slash)
 var is_sword_slash: bool = false
@@ -24,6 +24,8 @@ var armor_penetration: float = 0.0      # Lv1: 0.5 (50%), Lv2 & Lv3: 1.0 (100% T
 var magic_splash_radius: float = 0.0    # Lv2: 75px, Lv3: 95px
 var magic_splash_ratio: float = 0.5     # Tỷ lệ sát thương nổ lan vùng phụ
 var applies_nebula_burn: bool = false   # Lv3: Đốt 3% Max HP/s trong 3 giây & giật sét 3 mục tiêu
+var percent_hp_dmg_bonus: float = 0.0   # dmg tăng theo % max hp
+var cap_percent_hp_dmg_bonus: float = 0.0 
 
 @onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
 
@@ -80,36 +82,36 @@ func _on_area_entered(area: Area2D) -> void:
 
 ## Xử lý khi đạn chạm mục tiêu chính (Cung Thủ & Pháp Sư)
 func hit_target(enemy: Enemy) -> void:
+		
 	AudioManager.play_sfx("projectile_hit")
-	
 	var final_damage: float = damage
-	if bonus_vs_fast and enemy.data and enemy.data.move_speed >= 150.0:
-		final_damage *= 1.5
+	if apply_hit_armor:
+		enemy.apply_hit_armor()
 	if is_crit:
 		final_damage *= 2.0
 		
-	# Gây sát thương lên mục tiêu chính (có tính % xuyên giáp nếu là Pháp Sư)
-	enemy.take_damage(final_damage, armor_penetration)
-	
 	# Nếu là đạn của Tháp Pháp Sư -> Kích hoạt hiệu ứng phép thuật theo Level
 	if is_wizard_magic:
 		_handle_wizard_magic_impact(enemy, final_damage)
 	else:
+		enemy.take_damage(final_damage, armor_penetration)
 		_spawn_hit_vfx(global_position, Vector2(0.7, 0.7), Color(1.0, 0.6, 0.1, 1.0))
 		
 	queue_free()
 
 
 ## Xử lý Nổ lan (Lv2) và Hủy Diệt Tinh Vân + Giật năng lượng (Lv3) của Tháp Pháp Sư
-func _handle_wizard_magic_impact(main_enemy: Enemy, main_damage: float) -> void:
+func _handle_wizard_magic_impact(main_enemy: Enemy, main_damage: float) -> void:	
+	var m_dmg = main_damage + clampf(main_enemy.data.max_hp*percent_hp_dmg_bonus, 0, cap_percent_hp_dmg_bonus)
+	main_enemy.take_damage(m_dmg, armor_penetration)
 	var impact_pos: Vector2 = main_enemy.global_position
 	var vfx_color := Color(0.6, 0.4, 1.0, 1.0) if wizard_level < 3 else Color(0.95, 0.25, 1.0, 1.0)
 	var vfx_scale := Vector2(0.85, 0.85) if wizard_level == 1 else Vector2(1.25, 1.25)
 	_spawn_hit_vfx(impact_pos, vfx_scale, vfx_color)
 	
-	# Level 3: Đốt máu mục tiêu chính theo % Max HP (3% mỗi giây trong 3.5 giây)
+	# Level 3: Đốt máu mục tiêu chính theo % Max HP (2% mỗi giây trong 3.5 giây)
 	if applies_nebula_burn and is_instance_valid(main_enemy) and not main_enemy.is_dead:
-		main_enemy.apply_nebula_burn(0.03, 3.5)
+		main_enemy.apply_nebula_burn(0.06, 3.5)
 		
 	# Level 2 & Level 3: Nổ lan sát thương chuẩn ra xung quanh
 	if magic_splash_radius > 0.0:
@@ -123,14 +125,16 @@ func _handle_wizard_magic_impact(main_enemy: Enemy, main_damage: float) -> void:
 			if is_instance_valid(other) and not other.is_dead and other != main_enemy:
 				if impact_pos.distance_squared_to(other.global_position) <= radius_sq:
 					# Gây sát thương nổ lan xuyên 100% giáp
-					other.take_damage(main_damage * magic_splash_ratio, armor_penetration)
+					var o_dmg = main_damage + clampf(other.data.max_hp*percent_hp_dmg_bonus, 0, cap_percent_hp_dmg_bonus)
+					other.take_damage(o_dmg * magic_splash_ratio, armor_penetration)
 					
 					# Nếu là Level 3: Giật sét Tinh Vân và đốt máu luôn các mục tiêu phụ
 					if applies_nebula_burn and chain_count < max_chains:
 						chain_count += 1
-						other.apply_nebula_burn(0.02, 2.5)
 						_spawn_nebula_lightning_line(impact_pos, other.global_position)
 						_spawn_hit_vfx(other.global_position, Vector2(0.75, 0.75), vfx_color)
+						if not other.is_dead:
+							other.apply_nebula_burn(0.03, 2.5)
 
 
 ## Vẽ tia sét năng lượng Tinh Vân nối từ mục tiêu chính sang mục tiêu phụ ở Level 3
@@ -156,6 +160,7 @@ func _execute_sword_slash_aoe() -> void:
 	AudioManager.play_sfx("projectile_hit")
 	
 	if sprite:
+		#print("da chem kiem y")
 		var start_scale: Vector2 = sprite.scale
 		if slash_level == 2:
 			sprite.modulate = Color(0.4, 0.9, 1.0, 1.0)
@@ -193,18 +198,29 @@ func _execute_sword_slash_aoe() -> void:
 			continue
 			
 		if slash_level >= 3:
-			e.apply_armor_break(6, 3.0)
-			e.apply_freeze(0.05, 0.35)
-			get_tree().create_timer(0.35).timeout.connect(func():
-				if is_instance_valid(e) and not e.is_dead:
-					e.apply_freeze(0.65, 2.0)
+			pass
+			e.apply_heal_reduction(0.8,2)
+			
+		# Gây sát thương và hiện VFX trước
+		e.take_damage(damage)
+		_spawn_hit_vfx(e.global_position, Vector2(0.85, 0.85), Color(1.0, 0.85, 0.4, 1.0))
+		
+		# Nếu sau nhát chém mà quái đã chết thì bỏ qua hiệu ứng khống chế
+		if not is_instance_valid(e) or e.is_dead:
+			continue
+			
+		if slash_level >= 3:
+			e.apply_freeze(0.01, 0.8)
+			var enemy_ref: WeakRef = weakref(e)
+			get_tree().create_timer(0.8).timeout.connect(func():
+				var valid_e: Enemy = enemy_ref.get_ref() as Enemy
+				if is_instance_valid(valid_e) and not valid_e.is_dead:
+					valid_e.apply_freeze(0.55, 2.0)
 			)
 		elif slash_level == 2:
 			e.apply_freeze(0.65, 2.0)
-			
-		e.take_damage(damage)
-		_spawn_hit_vfx(e.global_position, Vector2(0.85, 0.85), Color(1.0, 0.85, 0.4, 1.0))
-
+		else:
+			e.apply_freeze(0.75, 1.2)
 
 func _spawn_hit_vfx(pos: Vector2, fx_scale: Vector2, fx_color: Color) -> void:
 	if not ResourceLoader.exists(EXPLOSION_FX_PATH):

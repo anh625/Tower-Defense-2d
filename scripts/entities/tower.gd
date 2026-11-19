@@ -7,9 +7,10 @@ extends Node2D
 ## Các chế độ ưu tiên mục tiêu của tháp
 enum TargetMode {
 	FIRST,  # Xa nhất (Đi đầu / gần Nhà chính nhất trên đường đi, hoặc xa tháp nhất)
-	LAST,   # Gần cổng nhất
+	#LAST,   # Gần cổng nhất
 	STRONGEST, # Mạnh nhất (Nhiều máu hiện tại nhất)
-	WEAKEST    # Yếu nhất (Ít máu hiện tại nhất)
+	#WEAKEST    # Yếu nhất (Ít máu hiện tại nhất)
+	ARMORED
 }
 
 ## Chế độ bắn hiện tại của tháp (Mặc định ưu tiên con đi xa nhất/đầu hàng)
@@ -47,6 +48,10 @@ func _ready() -> void:
 		push_error("Tower: Thiếu Node RangeArea (Area2D)!")
 		return
 	
+	# 1. Tách riêng CircleShape2D để tầm bắn của tháp đặt trước không bị đổi theo tháp đặt sau
+	if range_collision and range_collision.shape:
+		range_collision.shape = range_collision.shape.duplicate()
+	
 	# Kết nối tín hiệu quét quái vật
 	# Dùng area_entered nếu quái dùng Area2D (HurtBox), hoặc body_entered nếu quái là CharacterBody2D
 	if not range_area.area_entered.is_connected(_on_range_area_entered):
@@ -56,10 +61,13 @@ func _ready() -> void:
 	
 	# Đồng bộ bán kính tầm bắn theo cấp độ hiện tại
 	if data:
+		data = data.duplicate(true)
 		total_invested_gold = data.cost
 		# Tháp Pháp Sư mặc định ưu tiên nhắm vào quái Mạnh nhất (nhiều máu/giáp nhất)
-		if data.tower_id == "tower_wizard":
-			target_mode = TargetMode.STRONGEST
+		#if data.tower_id == "tower_wizard":
+			#target_mode = TargetMode.STRONGEST
+		#if data.tower_id == "tower_archer":
+			#target_mode = TargetMode.ARMORED
 		_setup_knight_guards()
 		_update_range_shape()
 		_update_visual() # Cập nhật hình ảnh ban đầu cho Level 1
@@ -130,10 +138,10 @@ func acquire_target() -> Enemy:
 		var candidate: Enemy = targets_in_range[i]
 		
 		match target_mode:
-			TargetMode.WEAKEST:
-				# Ưu tiên quái có máu hiện tại (current_hp) thấp nhất
-				if candidate.current_hp < best_enemy.current_hp:
-					best_enemy = candidate
+			#TargetMode.WEAKEST:
+				## Ưu tiên quái có máu hiện tại (current_hp) thấp nhất
+				#if candidate.current_hp < best_enemy.current_hp:
+					#best_enemy = candidate
 					
 			TargetMode.STRONGEST:
 				# Ưu tiên quái có máu hiện tại (current_hp) cao nhất (nếu bằng máu thì chọn con giáp dày hơn)
@@ -147,11 +155,31 @@ func acquire_target() -> Enemy:
 				# Con đi đầu là con chạy được quãng đường dài nhất trên Path2D (progress lớn nhất)
 				if candidate.progress > best_enemy.progress:
 					best_enemy = candidate
-					
-			TargetMode.LAST:
-				# Con đi cuối là con chạy được quãng đường ngắn nhất trên Path2D (progress nhỏ nhất)
-				if candidate.progress < best_enemy.progress:
+			
+			TargetMode.ARMORED:
+				if best_enemy.hit_shield <= 0 and \
+				candidate.hit_shield > 0:
 					best_enemy = candidate
+					
+				elif best_enemy.hit_shield <= 0 and \
+				candidate.hit_shield <= 0 and\
+				best_enemy.hit_armor <= 0 and\
+				candidate.hit_armor > 0:
+					best_enemy = candidate
+				
+				elif best_enemy.hit_shield <= 0 and \
+				candidate.hit_shield <= 0 and\
+				best_enemy.hit_armor <= 0 and\
+				candidate.hit_armor <= 0 and\
+				data.tower_id == "tower_archer" and\
+				current_level == 3 and\
+				best_enemy.data.armor < candidate.data.armor:
+					best_enemy = candidate
+					
+			#TargetMode.LAST:
+				## Con đi cuối là con chạy được quãng đường ngắn nhất trên Path2D (progress nhỏ nhất)
+				#if candidate.progress < best_enemy.progress:
+					#best_enemy = candidate
 					
 	return best_enemy
 
@@ -168,14 +196,16 @@ func shoot() -> void:
 	# 1. NHÁNH THÁP CUNG THỦ (Archer Tower)
 	if data.tower_id == "tower_archer":
 		AudioManager.play_sfx("tower_shoot")
+		
 		_spawn_archer_arrow(current_target, Vector2.ZERO)
 		
 		if current_level >= 3:
-			var second_target: Enemy = _get_secondary_target(current_target)
-			get_tree().create_timer(0.08).timeout.connect(func():
-				if not is_inside_tree():
-					return
-				var valid_target: Enemy = second_target
+			var arrow_tween: Tween = create_tween()
+			arrow_tween.tween_interval(0.08)
+			arrow_tween.tween_callback(func():
+				var valid_target: Enemy = null
+				if is_instance_valid(current_target) and not current_target.is_dead:
+					valid_target = _get_secondary_target(current_target)
 				if not is_instance_valid(valid_target) or valid_target.is_dead:
 					valid_target = acquire_target()
 				if is_instance_valid(valid_target) and not valid_target.is_dead:
@@ -224,12 +254,16 @@ func _spawn_wizard_orb(target_enemy: Enemy) -> void:
 			orb.magic_splash_radius = 75.0
 			orb.magic_splash_ratio = 0.5
 			orb.applies_nebula_burn = false
+			orb.percent_hp_dmg_bonus = 0.06
+			orb.cap_percent_hp_dmg_bonus = get_current_damage()*3
 		_:
 			# Level 3: Hủy Diệt Tinh Vân - Xuyên 100% giáp + Nổ lan 95px (65% sát thương) + Đốt % Max HP & Giật sét 3 quái
 			orb.armor_penetration = 1.0
 			orb.magic_splash_radius = 95.0
 			orb.magic_splash_ratio = 0.65
 			orb.applies_nebula_burn = true
+			orb.percent_hp_dmg_bonus = 0.08
+			orb.cap_percent_hp_dmg_bonus = get_current_damage()*4
 			
 	orb.set_target(target_enemy)
 	
@@ -269,11 +303,15 @@ func _perform_barrack_strike(target_enemy: Enemy) -> void:
 	attacker.flip_h = (dir_to_enemy.x < 0)
 	is_knight_dashing = true
 	
+	# Dùng WeakRef để giữ tham chiếu an toàn nếu quái chết trong lúc Hiệp sĩ đang lướt tới
+	var target_ref: WeakRef = weakref(target_enemy)
+	
 	# Bước 1 (Xung kích 0.1s) -> Bước 2 (Tung Kiếm Khí) -> Bước 3 (Thu về 0.14s)
 	var tween: Tween = create_tween()
 	tween.tween_property(attacker, "position", strike_pos, 0.10).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_callback(func():
-		_spawn_sword_slash_at(target_enemy)
+		var valid_enemy: Enemy = target_ref.get_ref() as Enemy
+		_spawn_sword_slash_at(valid_enemy)
 	)
 	tween.tween_property(attacker, "position", home_pos, 0.14).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_callback(func():
@@ -304,13 +342,13 @@ func _spawn_sword_slash_at(target_enemy: Enemy) -> void:
 	match current_level:
 		1:
 			slash.max_slash_targets = 3
-			slash.slash_radius = 65.0*320.0/180.0
+			slash.slash_radius = 115.0
 		2:
 			slash.max_slash_targets = 4
-			slash.slash_radius = 80.0*320.0/180.0
+			slash.slash_radius = 120.0
 		_:
 			slash.max_slash_targets = 6
-			slash.slash_radius = 100.0*320.0/180.0
+			slash.slash_radius = 130.0
 			
 	var level_node = get_tree().current_scene
 	if level_node:
@@ -341,7 +379,7 @@ func _spawn_archer_arrow(target_enemy: Enemy, pos_offset: Vector2) -> void:
 			
 	# LEVEL 3: Tăng 50% sát thương lên quái chạy nhanh (move_speed >= 150)
 	if current_level >= 3:
-		proj.bonus_vs_fast = true
+		proj.apply_hit_armor = true
 		
 	proj.set_target(target_enemy)
 	
@@ -499,7 +537,7 @@ func _update_range_shape() -> void:
 		
 ## Đổi xoay vòng chế độ bắn khi người chơi bấm nút trên Popup
 func cycle_target_mode() -> void:
-	target_mode = ((target_mode + 1) % 4) as TargetMode
+	target_mode = ((target_mode + 1) % TargetMode.size()) as TargetMode
 	# Cập nhật lại mục tiêu ngay lập tức khi đổi chế độ
 	current_target = acquire_target()
 
@@ -509,41 +547,18 @@ func get_target_mode_name() -> String:
 	match target_mode:
 		TargetMode.FIRST:
 			return "Đi đầu"
-		TargetMode.LAST:
-			return "Đi cuối"
+		#TargetMode.LAST:
+			#return "Đi cuối"
 		TargetMode.STRONGEST:
 			return "Mạnh nhất"
-		TargetMode.WEAKEST:
-			return "Yếu nhất"
+		#TargetMode.WEAKEST:
+			#return "Yếu nhất"
+		TargetMode.ARMORED:
+			return "Có khiên"
 	return "Đi đầu"
 	
 ## Mô tả kỹ năng đặc trưng theo cấp độ của cả 3 tháp
 func get_skill_description() -> String:
 	if not data:
 		return ""
-	match data.tower_id:
-		"tower_archer":
-			match current_level:
-				1:
-					return "Đặc tính: Bắn đơn tốc độ cao"
-				2:
-					return "Kỹ năng: 25% Chí mạng (x2 sát thương)"
-				3:
-					return "Kỹ năng: Bắn Kép (2 tên) | 35% Chí mạng\n+50% sát thương lên quái chạy nhanh"
-		"tower_barrack":
-			match current_level:
-				1:
-					return "Kỹ năng: Hiệp sĩ xung kích (Chém lan 3 quái)"
-				2:
-					return "Kỹ năng: Chém chấn động (Lan 4 quái)\nLàm chậm 35% tốc độ trong 2 giây"
-				3:
-					return "Kỹ năng: Trọng Kiếm Phá Giáp (Lan 6 quái)\nChoáng 0.35s, Chậm 35% & Trừ 6 Giáp (3s)"
-		"tower_wizard":
-			match current_level:
-				1:
-					return "Kỹ năng: Đạn phép xuyên 50% Giáp"
-				2:
-					return "Kỹ năng: Xuyên 100% Giáp (Sát thương chuẩn)\nNổ lan vùng phụ (50% sát thương)"
-				3:
-					return "Kỹ năng: Hủy Diệt Tinh Vân (Xuyên 100% Giáp)\nĐốt 3% Máu tối đa/giây & Giật lan 3 mục tiêu"
-	return ""
+	return data.description[current_level-1]

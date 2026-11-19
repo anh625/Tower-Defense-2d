@@ -184,7 +184,7 @@ func _update_upgrade_popup_ui() -> void:
 	if stats_label:
 		stats_label.text = "Sát thương: %d\nTầm bắn: %d\nTốc đánh: %.2f/s" % [
 			int(selected_tower.get_current_damage()),
-			int(selected_tower.get_current_range()),
+			int(selected_tower.get_current_range()*0.4),
 			selected_tower.get_current_attack_speed()
 		]
 		var skill_desc: String = selected_tower.get_skill_description()

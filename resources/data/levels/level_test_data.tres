@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bayf2r51nswkd"]
+
+[ext_resource type="Script" uid="uid://df8jbem2nwe7l" path="res://scripts/custom_resources/level_data.gd" id="1_n0s44"]
+[ext_resource type="Script" uid="uid://t327orvwtonh" path="res://scripts/custom_resources/wave_data.gd" id="2_d3and"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="3_ptg6o"]
+[ext_resource type="Resource" uid="uid://bjnd4cv76bone" path="res://resources/data/sub_waves/test_wizard/soldier_w1_b1_sub_wave.tres" id="4_s4dua"]
+
+[sub_resource type="Resource" id="Resource_mhluo"]
+script = ExtResource("2_d3and")
+sub_waves = Array[ExtResource("3_ptg6o")]([ExtResource("4_s4dua")])
+metadata/_custom_type_script = "uid://t327orvwtonh"
+
+[resource]
+script = ExtResource("1_n0s44")
+starting_gold = 10000
+wave_configuration = Array[ExtResource("2_d3and")]([SubResource("Resource_mhluo")])
+metadata/_custom_type_script = "uid://df8jbem2nwe7l"

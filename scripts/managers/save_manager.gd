@@ -139,7 +139,7 @@ func export_save_to_file() -> void:
 		print("[SaveManager] Đã lưu file tại: ", ProjectSettings.globalize_path(SAVE_PATH))
 
 
-## Mở hộp thoại chọn file .json trên trình duyệt Web
+## Mở hộp thoại chọn file .json (hỗ trợ cả trình duyệt Web lẫn khi F5 trên Desktop)
 func trigger_web_file_upload() -> void:
 	if OS.has_feature("web"):
 		var window := JavaScriptBridge.get_interface("window")
@@ -161,8 +161,26 @@ func trigger_web_file_upload() -> void:
 		"""
 		JavaScriptBridge.eval(js_code)
 	else:
-		load_progress()
-		save_imported_success.emit()
+		# Khi F5 trên Godot Editor/Desktop: Mở hộp thoại chọn file .json của hệ điều hành
+		DisplayServer.file_dialog_show(
+			"Chọn file Save (.json)",
+			ProjectSettings.globalize_path("user://"),
+			"",
+			false,
+			DisplayServer.FILE_DIALOG_MODE_OPEN_FILE,
+			PackedStringArray(["*.json ; JSON Save Files"]),
+			_on_desktop_file_selected
+		)
+
+
+func _on_desktop_file_selected(status: bool, selected_paths: PackedStringArray, _filter_idx: int) -> void:
+	if not status or selected_paths.is_empty():
+		return
+	var file := FileAccess.open(selected_paths[0], FileAccess.READ)
+	if file:
+		var json_str: String = file.get_as_text()
+		file.close()
+		import_save_from_json(json_str)
 
 
 func _on_file_loaded_from_browser(args: Array) -> void:
