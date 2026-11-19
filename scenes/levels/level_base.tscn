@@ -1,21 +1,9 @@
 [gd_scene format=4 uid="uid://iufq0tqtrv3w"]
 
 [ext_resource type="Script" uid="uid://b1x13qbvdmq3b" path="res://scripts/levels/level.gd" id="1_3iy5o"]
-[ext_resource type="Texture2D" uid="uid://bjtitmowfwk6p" path="res://assets/Sprites/Landscape tiles/grass.png" id="1_l4xu8"]
-[ext_resource type="Resource" uid="uid://bbmsu2j63f38x" path="res://resources/data/levels/level_1_data.tres" id="2_1vve2"]
-[ext_resource type="Texture2D" uid="uid://dvi3mmi5r1l6o" path="res://assets/Sprites/Landscape tiles/buildingPlaceGrass.png" id="2_3iy5o"]
+[ext_resource type="Resource" uid="uid://bayf2r51nswkd" path="res://resources/data/levels/level_test_data.tres" id="2_morta"]
 [ext_resource type="PackedScene" uid="uid://cyfh7ibbxavoq" path="res://scenes/enemies/enemy_base.tscn" id="3_bbft6"]
-[ext_resource type="Texture2D" uid="uid://jjyyx1lmw1et" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(9).png" id="3_p3ew5"]
-[ext_resource type="Texture2D" uid="uid://b61bumy0mqdr6" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(11).png" id="4_x2afm"]
-[ext_resource type="Texture2D" uid="uid://v8y17p71mbte" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(12).png" id="5_1vve2"]
-[ext_resource type="Texture2D" uid="uid://d4ffwdtejxd4n" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(1).png" id="6_bbft6"]
-[ext_resource type="Texture2D" uid="uid://bww2yfkqke7qh" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(2).png" id="7_ioey5"]
-[ext_resource type="Texture2D" uid="uid://cillouqbostdy" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(3).png" id="8_4vntt"]
-[ext_resource type="Texture2D" uid="uid://4vcq7cpa0pxq" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(4).png" id="9_48lp4"]
-[ext_resource type="Texture2D" uid="uid://i2tbpwmtssjy" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(5).png" id="10_rb8uy"]
-[ext_resource type="Texture2D" uid="uid://8qdx2b731ngj" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(6).png" id="11_7wjjj"]
-[ext_resource type="Texture2D" uid="uid://bp1ioac0jr5y0" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(7).png" id="12_jqu2d"]
-[ext_resource type="Texture2D" uid="uid://vvwiqlrtyorg" path="res://assets/Sprites/Road tiles/Spring biome/road_spring(8).png" id="13_ug1pp"]
+[ext_resource type="TileSet" uid="uid://mtpcqtqm70tm" path="res://resources/tile_set/tile_set_spring.tres" id="4_morta"]
 [ext_resource type="Texture2D" uid="uid://cob8pow3kca3m" path="res://assets/icons/Setting.png" id="14_osutr"]
 [ext_resource type="Texture2D" uid="uid://bsmh02dkifepx" path="res://assets/icons/pause.png" id="15_bc8pi"]
 [ext_resource type="PackedScene" uid="uid://ccqxp05djnofa" path="res://scenes/ui/settings_popup.tscn" id="19_4vntt"]
@@ -26,126 +14,59 @@
 [ext_resource type="Texture2D" uid="uid://dl3wg645rpsb8" path="res://assets/icons/freeze.png" id="23_48lp4"]
 [ext_resource type="Script" uid="uid://6nj46r7ncrh2" path="res://scripts/managers/skill_manager.gd" id="25_jqu2d"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3lh42"]
-texture = ExtResource("1_l4xu8")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-0:0/0/custom_data_0 = true
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmhy7"]
-texture = ExtResource("2_3iy5o")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vva6n"]
-texture = ExtResource("3_p3ew5")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vm2d2"]
-texture = ExtResource("4_x2afm")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hws8l"]
-texture = ExtResource("5_1vve2")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_28n4u"]
-texture = ExtResource("6_bbft6")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1exhq"]
-texture = ExtResource("7_ioey5")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_scqv6"]
-texture = ExtResource("8_4vntt")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jvpbq"]
-texture = ExtResource("9_48lp4")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yivqu"]
-texture = ExtResource("10_rb8uy")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g76na"]
-texture = ExtResource("11_7wjjj")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_658j2"]
-texture = ExtResource("12_jqu2d")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7nyn5"]
-texture = ExtResource("13_ug1pp")
-texture_region_size = Vector2i(250, 235)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -44)
-
-[sub_resource type="TileSet" id="TileSet_5k3fp"]
-tile_shape = 1
-tile_size = Vector2i(250, 147)
-custom_data_layer_0/name = "buildable"
-custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_3lh42")
-sources/1 = SubResource("TileSetAtlasSource_vmhy7")
-sources/2 = SubResource("TileSetAtlasSource_28n4u")
-sources/3 = SubResource("TileSetAtlasSource_1exhq")
-sources/4 = SubResource("TileSetAtlasSource_scqv6")
-sources/5 = SubResource("TileSetAtlasSource_jvpbq")
-sources/6 = SubResource("TileSetAtlasSource_yivqu")
-sources/7 = SubResource("TileSetAtlasSource_g76na")
-sources/8 = SubResource("TileSetAtlasSource_658j2")
-sources/9 = SubResource("TileSetAtlasSource_7nyn5")
-sources/10 = SubResource("TileSetAtlasSource_vva6n")
-sources/11 = SubResource("TileSetAtlasSource_vm2d2")
-sources/12 = SubResource("TileSetAtlasSource_hws8l")
-
 [sub_resource type="Curve2D" id="Curve2D_rmnd1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 192, 360, 0, 0, 0, 0, 496, 176, 0, 0, 0, 0, 696, 296, 0, 0, 0, 0, 448, 440, 0, 0, 0, 0, 448, 440, 0, 0, 0, 0, 648, 560, 0, 0, 0, 0, 920, 400)
+"points": PackedVector2Array(0, 0, 0, 0, 288.00003, 360.00003, 0, 0, 0, 0, 600.00006, 176.00002, 0, 0, 0, 0, 792.0001, 296.00003, 0, 0, 0, 0, 560.00006, 440.00006, 0, 0, 0, 0, 752.00006, 560.00006, 0, 0, 0, 0, 1024.0001, 400.00006)
 }
-point_count = 7
+point_count = 6
+
+[sub_resource type="InputEventAction" id="InputEventAction_morta"]
+action = &"space_key"
+
+[sub_resource type="Shortcut" id="Shortcut_morta"]
+events = [SubResource("InputEventAction_morta")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_wj30t"]
+action = &"escape_key"
+
+[sub_resource type="Shortcut" id="Shortcut_jstxl"]
+events = [SubResource("InputEventAction_wj30t")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_qj12d"]
+action = &"s_key"
+
+[sub_resource type="Shortcut" id="Shortcut_hwb15"]
+events = [SubResource("InputEventAction_qj12d")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_l4xu8"]
+action = &"q_key"
+
+[sub_resource type="Shortcut" id="Shortcut_p7rbk"]
+events = [SubResource("InputEventAction_l4xu8")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_p3ew5"]
+action = &"e_key"
+
+[sub_resource type="Shortcut" id="Shortcut_3iy5o"]
+events = [SubResource("InputEventAction_p3ew5")]
 
 [node name="LevelBase" type="Node2D" unique_id=646251334]
 script = ExtResource("1_3iy5o")
-level_data = ExtResource("2_1vve2")
+level_data = ExtResource("2_morta")
 enemy_base_scene = ExtResource("3_bbft6")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1968430053]
 y_sort_enabled = true
 scale = Vector2(0.4, 0.4)
-tile_map_data = PackedByteArray("AAABAAoAAAAAAAAAAAABAAsAAwAAAAAAAAACAAwAAAAAAAAAAAACAA0AAAAAAAAAAAADAA4AAAAAAAAAAAADAA8AAAAAAAAAAAAEABAAAAAAAAAAAAAEABEAAAAAAAAAAAAFABIAAAAAAAAAAAACAAgAAAAAAAAAAAABAAkAAAAAAAAAAAADAAYAAAAAAAAAAAACAAcAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAMAAAAAAAAAAAAFABMAAAAAAAAAAAAGABQAAAAAAAAAAAAGABMAAAAAAAAAAAAHABIAAAAAAAAAAAAHABEAAAAAAAAAAAAIABAAAAAAAAAAAAAIAA8AAAAAAAAAAAAJAA4AAAAAAAAAAAAJAA0AAAAAAAAAAAAJAAwAAQAAAAAAAAAIAAsAAAAAAAAAAAAIAAoAAAAAAAAAAAAHAAkAAAAAAAAAAAAHAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAYAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAA4AAAAAAAAAAAAFAA0AAAAAAAAAAAAGAAwAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAoAAAAAAAAAAAAGAAkADAAAAAAAAAAGAAgAAgAAAAAAAAAFAAcAAgAAAAAAAAAFAAYAAgAAAAAAAAAEAAUACQAAAAAAAAAEAAYAAwAAAAAAAAADAAcAAwAAAAAAAAADAAgAAwAAAAAAAAACAAkAAwAAAAAAAAACAAoAAwAAAAAAAAACAAsAAAAAAAAAAAADAAoAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAADAAsAAAAAAAAAAAADAAwAAAAAAAAAAAADAA0AAAAAAAAAAAAEAAwAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAoAAwAAAAAAAAAFAAsAAwAAAAAAAAAFAAwAAwAAAAAAAAAEAA0AAwAAAAAAAAAEAA4ACwAAAAAAAAAEAA8AAgAAAAAAAAAFABAAAgAAAAAAAAAFAA8AAAAAAAAAAAAGAA4AAAAAAAAAAAAGAA0AAAAAAAAAAAAHAAwAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAwAAAAAAAAAAAAHAA0AAAAAAAAAAAAHAA4AAAAAAAAAAAAGAA8AAAAAAAAAAAAGABAAAAAAAAAAAAAFABEAAgAAAAAAAAAGABIACgAAAAAAAAAGABEAAwAAAAAAAAAHABAAAwAAAAAAAAAHAA8AAwAAAAAAAAAIAA4AAwAAAAAAAAAIAA0AAwAAAAAAAAA=")
-tile_set = SubResource("TileSet_5k3fp")
+tile_map_data = PackedByteArray("AAACAAkAAAAAAAAAAAACAAoAAAAAAAAAAAACAAsAAwAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAwAAAAAAAAADAAoAAwAAAAAAAAADAAsAAAAAAAAAAAADAAwAAAAAAAAAAAADAA0AAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAwAAAAAAAAAEAAgAAwAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAEAAsAAAAAAAAAAAAEAAwAAAAAAAAAAAAEAA0AAAAAAAAAAAAEAA4AAAAAAAAAAAAEAA8AAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUACQAAAAAAAAAFAAYAAwAAAAAAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAsAAAAAAAAAAAAFAAwAAAAAAAAAAAAFAA0AAwAAAAAAAAAFAA4ACwAAAAAAAAAFAA8AAgAAAAAAAAAFABAAAAAAAAAAAAAFABEAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAgAAAAAAAAAGAAcAAgAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAsAAwAAAAAAAAAGAAwAAwAAAAAAAAAGAA0AAAAAAAAAAAAGAA4AAAAAAAAAAAAGAA8AAAAAAAAAAAAGABAAAgAAAAAAAAAGABEAAgAAAAAAAAAGABIAAAAAAAAAAAAGABMAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAAHAAgAAgAAAAAAAAAHAAkADAAAAAAAAAAHAAoAAwAAAAAAAAAHAAsAAAAAAAAAAAAHAAwAAAAAAAAAAAAHAA0AAAAAAAAAAAAHAA4AAAAAAAAAAAAHAA8AAAAAAAAAAAAHABAAAAAAAAAAAAAHABEAAwAAAAAAAAAHABIACgAAAAAAAAAHABMAAAAAAAAAAAAHABQAAAAAAAAAAAAIAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAIAAoAAAAAAAAAAAAIAAsAAAAAAAAAAAAIAAwAAAAAAAAAAAAIAA0AAAAAAAAAAAAIAA4AAAAAAAAAAAAIAA8AAwAAAAAAAAAIABAAAwAAAAAAAAAIABEAAAAAAAAAAAAIABIAAAAAAAAAAAAJAAoAAAAAAAAAAAAJAAsAAAAAAAAAAAAJAAwAAAAAAAAAAAAJAA0AAwAAAAAAAAAJAA4AAwAAAAAAAAAJAA8AAAAAAAAAAAAJABAAAAAAAAAAAAAKAAwAAQAAAAAAAAAKAA0AAAAAAAAAAAAKAA4AAAAAAAAAAAA=")
+tile_set = ExtResource("4_morta")
 
 [node name="EnemyPath" type="Path2D" parent="." unique_id=2078967344]
+z_index = 1
 scale = Vector2(0.9999998, 0.9999998)
 curve = SubResource("Curve2D_rmnd1")
 
-[node name="SpawnTimer" type="Timer" parent="." unique_id=627855102]
+[node name="SpawnTimer" type="Timer" parent="." unique_id=627855102 groups=["spawn_timers"]]
 one_shot = true
 
 [node name="WaveCountdownTimer" type="Timer" parent="." unique_id=284986925]
@@ -181,6 +102,7 @@ text = "HP: 20"
 
 [node name="EarlyWaveBtn" type="Button" parent="HUD/HBoxContainer" unique_id=1118372598]
 layout_mode = 2
+shortcut = SubResource("Shortcut_morta")
 text = "Gọi Wave Sớm"
 
 [node name="ResultPopup" type="PanelContainer" parent="HUD" unique_id=1284321840]
@@ -271,6 +193,7 @@ text = "Menu chính"
 offset_right = 256.0
 offset_bottom = 256.0
 scale = Vector2(0.25, 0.25)
+shortcut = SubResource("Shortcut_jstxl")
 texture_normal = ExtResource("15_bc8pi")
 
 [node name="Setting" type="TextureButton" parent="HUD" unique_id=736938672]
@@ -278,6 +201,7 @@ offset_top = 712.0
 offset_right = 558.0
 offset_bottom = 1270.0
 scale = Vector2(0.1, 0.1)
+shortcut = SubResource("Shortcut_hwb15")
 texture_normal = ExtResource("14_osutr")
 
 [node name="SkillHUD" type="Control" parent="." unique_id=2123321251]
@@ -290,23 +214,47 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("22_7wjjj")
 
-[node name="SkillsContainer" type="HBoxContainer" parent="SkillHUD" unique_id=1207617543]
+[node name="VBoxContainer" type="VBoxContainer" parent="SkillHUD" unique_id=221244715]
 layout_mode = 0
-offset_left = 1176.0
-offset_top = 688.0
-offset_right = 1336.0
-offset_bottom = 760.0
+offset_left = 1185.0
+offset_top = 665.0
+offset_right = 1345.0
+offset_bottom = 764.0
+
+[node name="LabelSkillContainer" type="HBoxContainer" parent="SkillHUD/VBoxContainer" unique_id=1668888401]
+layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="BtnMeteor" type="TextureButton" parent="SkillHUD/SkillsContainer" unique_id=1389104311]
+[node name="LabelMeteorBtn2" type="Label" parent="SkillHUD/VBoxContainer/LabelSkillContainer" unique_id=233974460]
+custom_minimum_size = Vector2(72, 0)
+custom_maximum_size = Vector2(72, -1)
+layout_mode = 2
+text = "[Q]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelMeteorBtn" type="Label" parent="SkillHUD/VBoxContainer/LabelSkillContainer" unique_id=398098201]
+custom_minimum_size = Vector2(72, 0)
+custom_maximum_size = Vector2(72, -1)
+layout_mode = 2
+text = "[E]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillsContainer" type="HBoxContainer" parent="SkillHUD/VBoxContainer" unique_id=1207617543]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BtnMeteor" type="TextureButton" parent="SkillHUD/VBoxContainer/SkillsContainer" unique_id=1389104311]
 custom_minimum_size = Vector2(72, 72)
 custom_maximum_size = Vector2(72, 72)
 layout_mode = 2
 offset_transform_enabled = true
+shortcut = SubResource("Shortcut_p7rbk")
 texture_normal = ExtResource("22_4vntt")
 stretch_mode = 0
 
-[node name="MeteorCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/SkillsContainer/BtnMeteor" unique_id=537716059]
+[node name="MeteorCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/VBoxContainer/SkillsContainer/BtnMeteor" unique_id=537716059]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -317,7 +265,7 @@ mouse_filter = 2
 step = 0.05
 fill_mode = 4
 
-[node name="MeteorTimerLabel" type="Label" parent="SkillHUD/SkillsContainer/BtnMeteor" unique_id=34653801]
+[node name="MeteorTimerLabel" type="Label" parent="SkillHUD/VBoxContainer/SkillsContainer/BtnMeteor" unique_id=34653801]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -329,15 +277,16 @@ theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BtnFreeze" type="TextureButton" parent="SkillHUD/SkillsContainer" unique_id=2109046077]
+[node name="BtnFreeze" type="TextureButton" parent="SkillHUD/VBoxContainer/SkillsContainer" unique_id=2109046077]
 custom_minimum_size = Vector2(72, 72)
 custom_maximum_size = Vector2(72, 72)
 layout_mode = 2
 offset_transform_enabled = true
+shortcut = SubResource("Shortcut_3iy5o")
 texture_normal = ExtResource("23_48lp4")
 stretch_mode = 0
 
-[node name="FreezeCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/SkillsContainer/BtnFreeze" unique_id=985252042]
+[node name="FreezeCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/VBoxContainer/SkillsContainer/BtnFreeze" unique_id=985252042]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -348,7 +297,7 @@ mouse_filter = 2
 step = 0.05
 fill_mode = 4
 
-[node name="FreezeTimerLabel" type="Label" parent="SkillHUD/SkillsContainer/BtnFreeze" unique_id=143413613]
+[node name="FreezeTimerLabel" type="Label" parent="SkillHUD/VBoxContainer/SkillsContainer/BtnFreeze" unique_id=143413613]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

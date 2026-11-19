@@ -1,0 +1,258 @@
+[gd_scene format=4 uid="uid://iufq0tqtrv3w"]
+
+[ext_resource type="Script" uid="uid://b1x13qbvdmq3b" path="res://scripts/levels/level.gd" id="1_3iy5o"]
+[ext_resource type="Resource" uid="uid://bayf2r51nswkd" path="res://resources/data/levels/level_test_data.tres" id="2_morta"]
+[ext_resource type="PackedScene" uid="uid://cyfh7ibbxavoq" path="res://scenes/enemies/enemy_base.tscn" id="3_bbft6"]
+[ext_resource type="TileSet" uid="uid://mtpcqtqm70tm" path="res://resources/tile_set/tile_set_spring.tres" id="4_morta"]
+[ext_resource type="Texture2D" uid="uid://cob8pow3kca3m" path="res://assets/icons/Setting.png" id="14_osutr"]
+[ext_resource type="Texture2D" uid="uid://bsmh02dkifepx" path="res://assets/icons/pause.png" id="15_bc8pi"]
+[ext_resource type="PackedScene" uid="uid://ccqxp05djnofa" path="res://scenes/ui/settings_popup.tscn" id="19_4vntt"]
+[ext_resource type="PackedScene" uid="uid://c4vx16jo68fg5" path="res://scenes/managers/grid_system.tscn" id="19_ioey5"]
+[ext_resource type="PackedScene" uid="uid://cfqgnbfsrksct" path="res://scenes/ui/tower_panel.tscn" id="20_4vntt"]
+[ext_resource type="Texture2D" uid="uid://c3phltdebmx8k" path="res://assets/icons/Meteor.png" id="22_4vntt"]
+[ext_resource type="Script" uid="uid://cbkgkppq17nk4" path="res://scripts/ui/skill_hud.gd" id="22_7wjjj"]
+[ext_resource type="Texture2D" uid="uid://dl3wg645rpsb8" path="res://assets/icons/freeze.png" id="23_48lp4"]
+[ext_resource type="Script" uid="uid://6nj46r7ncrh2" path="res://scripts/managers/skill_manager.gd" id="25_jqu2d"]
+
+[sub_resource type="Curve2D" id="Curve2D_rmnd1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 288.00003, 360.00003, 0, 0, 0, 0, 600.00006, 176.00002, 0, 0, 0, 0, 792.0001, 296.00003, 0, 0, 0, 0, 560.00006, 440.00006, 0, 0, 0, 0, 752.00006, 560.00006, 0, 0, 0, 0, 1024.0001, 400.00006)
+}
+point_count = 6
+
+[node name="LevelBase" type="Node2D" unique_id=646251334]
+script = ExtResource("1_3iy5o")
+level_data = ExtResource("2_morta")
+enemy_base_scene = ExtResource("3_bbft6")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1968430053]
+y_sort_enabled = true
+scale = Vector2(0.4, 0.4)
+tile_map_data = PackedByteArray("AAACAAkAAAAAAAAAAAACAAoAAAAAAAAAAAACAAsAAwAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAwAAAAAAAAADAAoAAwAAAAAAAAADAAsAAAAAAAAAAAADAAwAAAAAAAAAAAADAA0AAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAwAAAAAAAAAEAAgAAwAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAEAAsAAAAAAAAAAAAEAAwAAAAAAAAAAAAEAA0AAAAAAAAAAAAEAA4AAAAAAAAAAAAEAA8AAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUACQAAAAAAAAAFAAYAAwAAAAAAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAsAAAAAAAAAAAAFAAwAAAAAAAAAAAAFAA0AAwAAAAAAAAAFAA4ACwAAAAAAAAAFAA8AAgAAAAAAAAAFABAAAAAAAAAAAAAFABEAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAgAAAAAAAAAGAAcAAgAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAsAAwAAAAAAAAAGAAwAAwAAAAAAAAAGAA0AAAAAAAAAAAAGAA4AAAAAAAAAAAAGAA8AAAAAAAAAAAAGABAAAgAAAAAAAAAGABEAAgAAAAAAAAAGABIAAAAAAAAAAAAGABMAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAAHAAgAAgAAAAAAAAAHAAkADAAAAAAAAAAHAAoAAwAAAAAAAAAHAAsAAAAAAAAAAAAHAAwAAAAAAAAAAAAHAA0AAAAAAAAAAAAHAA4AAAAAAAAAAAAHAA8AAAAAAAAAAAAHABAAAAAAAAAAAAAHABEAAwAAAAAAAAAHABIACgAAAAAAAAAHABMAAAAAAAAAAAAHABQAAAAAAAAAAAAIAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAIAAoAAAAAAAAAAAAIAAsAAAAAAAAAAAAIAAwAAAAAAAAAAAAIAA0AAAAAAAAAAAAIAA4AAAAAAAAAAAAIAA8AAwAAAAAAAAAIABAAAwAAAAAAAAAIABEAAAAAAAAAAAAIABIAAAAAAAAAAAAJAAoAAAAAAAAAAAAJAAsAAAAAAAAAAAAJAAwAAAAAAAAAAAAJAA0AAwAAAAAAAAAJAA4AAwAAAAAAAAAJAA8AAAAAAAAAAAAJABAAAAAAAAAAAAAKAAwAAQAAAAAAAAAKAA0AAAAAAAAAAAAKAA4AAAAAAAAAAAA=")
+tile_set = ExtResource("4_morta")
+
+[node name="EnemyPath" type="Path2D" parent="." unique_id=2078967344]
+z_index = 1
+scale = Vector2(0.9999998, 0.9999998)
+curve = SubResource("Curve2D_rmnd1")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=627855102]
+one_shot = true
+
+[node name="WaveCountdownTimer" type="Timer" parent="." unique_id=284986925]
+one_shot = true
+
+[node name="TowerPanel" parent="." unique_id=646288814 instance=ExtResource("20_4vntt")]
+
+[node name="GridSystem" parent="." unique_id=522242352 instance=ExtResource("19_ioey5")]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1133417873]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD" unique_id=1761927139]
+offset_left = 536.0
+offset_right = 1344.0
+offset_bottom = 72.0
+theme_override_constants/separation = 30
+
+[node name="EnemyLabel" type="Label" parent="HUD/HBoxContainer" unique_id=441713108]
+layout_mode = 2
+text = "ENEMY: 100"
+
+[node name="WaveLabel" type="Label" parent="HUD/HBoxContainer" unique_id=456152504]
+layout_mode = 2
+text = "Wave: 0/0"
+
+[node name="GoldLabel" type="Label" parent="HUD/HBoxContainer" unique_id=1610061813]
+layout_mode = 2
+text = "Gold: 250"
+
+[node name="HpLabel" type="Label" parent="HUD/HBoxContainer" unique_id=1818006132]
+layout_mode = 2
+text = "HP: 20"
+
+[node name="EarlyWaveBtn" type="Button" parent="HUD/HBoxContainer" unique_id=1118372598]
+layout_mode = 2
+text = "Gọi Wave Sớm"
+
+[node name="ResultPopup" type="PanelContainer" parent="HUD" unique_id=1284321840]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -110.0
+offset_right = 175.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/ResultPopup" unique_id=721730956]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="HUD/ResultPopup/VBoxContainer" unique_id=1817609790]
+layout_mode = 2
+text = "CHIẾN THẮNG!"
+horizontal_alignment = 1
+
+[node name="StarsLabel" type="Label" parent="HUD/ResultPopup/VBoxContainer" unique_id=1148266122]
+layout_mode = 2
+text = "★ ★ ★"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="HUD/ResultPopup/VBoxContainer" unique_id=1070589725]
+layout_mode = 2
+alignment = 1
+
+[node name="RestartBtn" type="Button" parent="HUD/ResultPopup/VBoxContainer/ButtonsContainer" unique_id=148864089]
+layout_mode = 2
+text = "Chơi lại"
+
+[node name="NextLevelBtn" type="Button" parent="HUD/ResultPopup/VBoxContainer/ButtonsContainer" unique_id=18469324]
+layout_mode = 2
+text = "Màn tiếp"
+
+[node name="MenuBtn" type="Button" parent="HUD/ResultPopup/VBoxContainer/ButtonsContainer" unique_id=1803063853]
+layout_mode = 2
+text = "Menu chính"
+
+[node name="PausePopup" type="PanelContainer" parent="HUD" unique_id=1315434430]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -130.0
+offset_right = 130.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PausePopup" unique_id=2044771728]
+layout_mode = 2
+alignment = 1
+
+[node name="PauseTitle" type="Label" parent="HUD/PausePopup/VBoxContainer" unique_id=14564354]
+layout_mode = 2
+text = "TẠM DỪNG"
+horizontal_alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="HUD/PausePopup/VBoxContainer" unique_id=2023372611]
+layout_mode = 2
+text = "Tiếp tục"
+
+[node name="PauseRestartBtn" type="Button" parent="HUD/PausePopup/VBoxContainer" unique_id=549627651]
+layout_mode = 2
+text = "Chơi lại"
+
+[node name="PauseMenuBtn" type="Button" parent="HUD/PausePopup/VBoxContainer" unique_id=747578611]
+layout_mode = 2
+text = "Menu chính"
+
+[node name="SettingsPopup" parent="HUD" unique_id=2017878386 instance=ExtResource("19_4vntt")]
+
+[node name="Pause" type="TextureButton" parent="HUD" unique_id=1588682197]
+offset_right = 256.0
+offset_bottom = 256.0
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("15_bc8pi")
+
+[node name="Setting" type="TextureButton" parent="HUD" unique_id=736938672]
+offset_top = 712.0
+offset_right = 558.0
+offset_bottom = 1270.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("14_osutr")
+
+[node name="SkillHUD" type="Control" parent="." unique_id=2123321251]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("22_7wjjj")
+
+[node name="SkillsContainer" type="HBoxContainer" parent="SkillHUD" unique_id=1207617543]
+layout_mode = 0
+offset_left = 1176.0
+offset_top = 688.0
+offset_right = 1336.0
+offset_bottom = 760.0
+theme_override_constants/separation = 16
+
+[node name="BtnMeteor" type="TextureButton" parent="SkillHUD/SkillsContainer" unique_id=1389104311]
+custom_minimum_size = Vector2(72, 72)
+custom_maximum_size = Vector2(72, 72)
+layout_mode = 2
+offset_transform_enabled = true
+texture_normal = ExtResource("22_4vntt")
+stretch_mode = 0
+
+[node name="MeteorCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/SkillsContainer/BtnMeteor" unique_id=537716059]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+step = 0.05
+fill_mode = 4
+
+[node name="MeteorTimerLabel" type="Label" parent="SkillHUD/SkillsContainer/BtnMeteor" unique_id=34653801]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnFreeze" type="TextureButton" parent="SkillHUD/SkillsContainer" unique_id=2109046077]
+custom_minimum_size = Vector2(72, 72)
+custom_maximum_size = Vector2(72, 72)
+layout_mode = 2
+offset_transform_enabled = true
+texture_normal = ExtResource("23_48lp4")
+stretch_mode = 0
+
+[node name="FreezeCooldownOverlay" type="TextureProgressBar" parent="SkillHUD/SkillsContainer/BtnFreeze" unique_id=985252042]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+step = 0.05
+fill_mode = 4
+
+[node name="FreezeTimerLabel" type="Label" parent="SkillHUD/SkillsContainer/BtnFreeze" unique_id=143413613]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+theme_override_font_sizes/font_size = 25
+text = "40"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AoEReticle" type="Node2D" parent="SkillHUD" unique_id=347950360]
+
+[node name="SkillManager" type="Node2D" parent="." unique_id=97657286]
+script = ExtResource("25_jqu2d")

@@ -8,6 +8,24 @@
 [ext_resource type="Texture2D" uid="uid://uxnv4o35r0rx" path="res://assets/Sprites/Towers/Wizard/wizard_level_1.png" id="6_m24vw"]
 [ext_resource type="Texture2D" uid="uid://4qgdmsmaowal" path="res://assets/Sprites/Towers/Barrack/barrack_level_1 (1).png" id="7_0ya1t"]
 
+[sub_resource type="InputEventAction" id="InputEventAction_1vve2"]
+action = &"number_1"
+
+[sub_resource type="Shortcut" id="Shortcut_x2afm"]
+events = [SubResource("InputEventAction_1vve2")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ioey5"]
+action = &"number_2"
+
+[sub_resource type="Shortcut" id="Shortcut_bbft6"]
+events = [SubResource("InputEventAction_ioey5")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_48lp4"]
+action = &"number_3"
+
+[sub_resource type="Shortcut" id="Shortcut_4vntt"]
+events = [SubResource("InputEventAction_48lp4")]
+
 [node name="TowerPanel" type="Control" unique_id=646288814]
 layout_mode = 3
 anchors_preset = 15
@@ -26,27 +44,6 @@ layout_mode = 0
 offset_left = 1344.0
 offset_right = 1664.0
 offset_bottom = 768.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=306378528]
-layout_mode = 0
-offset_left = 1344.0
-offset_right = 1664.0
-offset_bottom = 768.0
-
-[node name="BtnArcher" type="Button" parent="VBoxContainer" unique_id=1534923198]
-layout_mode = 2
-text = "100G"
-icon = ExtResource("5_rllod")
-
-[node name="BtnWizard" type="Button" parent="VBoxContainer" unique_id=1095782628]
-layout_mode = 2
-text = "130G"
-icon = ExtResource("6_m24vw")
-
-[node name="BtnBarrack" type="Button" parent="VBoxContainer" unique_id=890221071]
-layout_mode = 2
-text = "130G"
-icon = ExtResource("7_0ya1t")
 
 [node name="PreviewIndicator" type="Node2D" parent="." unique_id=1832825674]
 scale = Vector2(0.4, 0.4)
@@ -94,3 +91,48 @@ text = "Bán"
 [node name="BtnClose" type="Button" parent="UpgradePopup/VBoxContainer/ButtonsBox" unique_id=168709642]
 layout_mode = 2
 text = "Đóng"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=470659927]
+layout_mode = 0
+offset_left = 1320.0
+offset_right = 1664.0
+offset_bottom = 478.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1294984119]
+layout_mode = 2
+theme_override_constants/separation = 132
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2" unique_id=16055250]
+layout_mode = 2
+text = "[1]"
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2" unique_id=1021473280]
+layout_mode = 2
+text = "[2]"
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer2" unique_id=130180245]
+layout_mode = 2
+text = "[3]"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=306378528]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="BtnArcher" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1534923198]
+layout_mode = 2
+shortcut = SubResource("Shortcut_x2afm")
+text = "100G"
+icon = ExtResource("5_rllod")
+
+[node name="BtnWizard" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1095782628]
+layout_mode = 2
+shortcut = SubResource("Shortcut_bbft6")
+text = "130G"
+icon = ExtResource("6_m24vw")
+
+[node name="BtnBarrack" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=890221071]
+layout_mode = 2
+shortcut = SubResource("Shortcut_4vntt")
+text = "130G"
+icon = ExtResource("7_0ya1t")

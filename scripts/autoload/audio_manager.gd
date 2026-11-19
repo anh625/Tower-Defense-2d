@@ -3,7 +3,10 @@ extends Node
 ## Đường dẫn các bản nhạc nền (BGM) - Bạn đổi đuôi .ogg hoặc .mp3 tùy file thực tế
 const BGM_TRACKS: Dictionary = {
 	"menu": "res://assets/audio/bgm/menu_bgm.mp3",
-	"battle": "res://assets/audio/bgm/battle_bgm.mp3"
+	"battle": "res://assets/audio/bgm/battle_bgm.mp3",
+	"battle_1": "res://assets/audio/bgm/greenrocketaudio-sprint-616467.mp3",
+	"battle_2": "res://assets/audio/bgm/tokyorifft-the-sand-surfers-of-dune-450481.mp3",
+	"battle_3": "res://assets/audio/bgm/atlasaudio-christmas-winter-625694.mp3"
 }
 
 ## Đường dẫn các hiệu ứng âm thanh (SFX) - Chuẩn bị sẵn cho Bước 2 (SCRUM-71)

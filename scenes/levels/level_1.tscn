@@ -1,5 +1,189 @@
 [gd_scene format=3 uid="uid://c4cwejv6kg3cf"]
 
 [ext_resource type="PackedScene" uid="uid://iufq0tqtrv3w" path="res://scenes/levels/level_base.tscn" id="1_ksju7"]
+[ext_resource type="Texture2D" uid="uid://bspbraxdm1yyy" path="res://assets/Sprites/Enviroument tiles/Spring biome/grass decoration/grass_decoration(1).png" id="2_dnkej"]
+[ext_resource type="Resource" uid="uid://bbmsu2j63f38x" path="res://resources/data/levels/level_1_data.tres" id="2_mm8aj"]
+[ext_resource type="Texture2D" uid="uid://04maww7j11v2" path="res://assets/Sprites/Enviroument tiles/Spring biome/grass decoration/grass_decoration(2).png" id="3_mm8aj"]
+[ext_resource type="Texture2D" uid="uid://dnj5fywi142nn" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone(1).png" id="4_wtwp4"]
+[ext_resource type="Texture2D" uid="uid://ciil8e5njd33l" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone(2).png" id="5_iwr0g"]
+[ext_resource type="Texture2D" uid="uid://flo3mhc1cgcb" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone(3).png" id="6_bahl2"]
+[ext_resource type="Texture2D" uid="uid://cbflb005m8uw1" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone(4).png" id="7_np2pn"]
+[ext_resource type="Texture2D" uid="uid://bqrmq0q7rote0" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone_ground(1).png" id="8_v6ha0"]
+[ext_resource type="Texture2D" uid="uid://ct20r282c1kbg" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone_ground(2).png" id="9_gmpev"]
+[ext_resource type="Texture2D" uid="uid://dnoboojsv6p6j" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone_ground(3).png" id="10_mkypq"]
+[ext_resource type="Texture2D" uid="uid://ctvtflqw2ta4" path="res://assets/Sprites/Enviroument tiles/Spring biome/stones/stone_ground(4).png" id="11_ndtll"]
+[ext_resource type="Texture2D" uid="uid://dpp4426kxaouj" path="res://assets/Sprites/Enviroument tiles/Spring biome/trees/tree(1).png" id="12_7h2jl"]
+[ext_resource type="Texture2D" uid="uid://3ct0rnhrrtbg" path="res://assets/Sprites/Enviroument tiles/Spring biome/trees/tree(2).png" id="13_mqh5v"]
+
+[sub_resource type="Curve2D" id="Curve2D_dnkej"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 288.00003, 360.00003, 0, 0, 0, 0, 600.00006, 176.00002, 0, 0, 0, 0, 792.0001, 296.00003, 0, 0, 0, 0, 560.00006, 440.00006, 0, 0, 0, 0, 752.00006, 560.00006, 0, 0, 0, 0, 1024.0001, 400.00006)
+}
+point_count = 6
 
 [node name="Level1" unique_id=646251334 instance=ExtResource("1_ksju7")]
+level_data = ExtResource("2_mm8aj")
+
+[node name="BonusUI" type="Node2D" parent="." index="1" unique_id=1553495561]
+visible = false
+y_sort_enabled = true
+
+[node name="Grass" type="Node2D" parent="BonusUI" index="0" unique_id=1004604512]
+
+[node name="GrassDecoration(1)" type="Sprite2D" parent="BonusUI/Grass" index="0" unique_id=1015419582]
+position = Vector2(232, 320)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dnkej")
+
+[node name="GrassDecoration(1)2" type="Sprite2D" parent="BonusUI/Grass" index="1" unique_id=1080196388]
+position = Vector2(472, 200)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dnkej")
+
+[node name="GrassDecoration(1)3" type="Sprite2D" parent="BonusUI/Grass" index="2" unique_id=19029196]
+position = Vector2(920, 350)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dnkej")
+
+[node name="GrassDecoration(1)4" type="Sprite2D" parent="BonusUI/Grass" index="3" unique_id=388241011]
+position = Vector2(816, 350)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dnkej")
+
+[node name="GrassDecoration(1)5" type="Sprite2D" parent="BonusUI/Grass" index="4" unique_id=1515789414]
+position = Vector2(544, 392)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dnkej")
+
+[node name="GrassDecoration(1)6" type="Sprite2D" parent="BonusUI/Grass" index="5" unique_id=2086945473]
+position = Vector2(528, 288)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dnkej")
+
+[node name="GrassDecoration(1)7" type="Sprite2D" parent="BonusUI/Grass" index="6" unique_id=636727747]
+position = Vector2(416, 344)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dnkej")
+
+[node name="GrassDecoration(2)" type="Sprite2D" parent="BonusUI/Grass" index="7" unique_id=406950900]
+position = Vector2(752, 616)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mm8aj")
+
+[node name="GrassDecoration(2)4" type="Sprite2D" parent="BonusUI/Grass" index="8" unique_id=447551955]
+position = Vector2(752, 616)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mm8aj")
+
+[node name="GrassDecoration(2)6" type="Sprite2D" parent="BonusUI/Grass" index="9" unique_id=2121364153]
+position = Vector2(664, 250)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mm8aj")
+
+[node name="GrassDecoration(2)7" type="Sprite2D" parent="BonusUI/Grass" index="10" unique_id=1408952806]
+position = Vector2(816, 408)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mm8aj")
+
+[node name="GrassDecoration(2)8" type="Sprite2D" parent="BonusUI/Grass" index="11" unique_id=1221693414]
+position = Vector2(848, 557)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mm8aj")
+
+[node name="GrassDecoration(2)9" type="Sprite2D" parent="BonusUI/Grass" index="12" unique_id=817932906]
+position = Vector2(640, 544)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mm8aj")
+
+[node name="GrassDecoration(2)10" type="Sprite2D" parent="BonusUI/Grass" index="13" unique_id=156762525]
+position = Vector2(750, 480)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mm8aj")
+
+[node name="Stone" type="Node2D" parent="BonusUI" index="1" unique_id=902382056]
+
+[node name="Stone(1)" type="Sprite2D" parent="BonusUI/Stone" index="0" unique_id=14821615]
+y_sort_enabled = true
+position = Vector2(600, 128)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_wtwp4")
+
+[node name="Stone(2)" type="Sprite2D" parent="BonusUI/Stone" index="1" unique_id=1720094088]
+position = Vector2(560, 520)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_iwr0g")
+
+[node name="Stone(3)" type="Sprite2D" parent="BonusUI/Stone" index="2" unique_id=1016801898]
+position = Vector2(360, 283)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_bahl2")
+
+[node name="Stone(4)" type="Sprite2D" parent="BonusUI/Stone" index="3" unique_id=799041068]
+position = Vector2(752, 528)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_np2pn")
+
+[node name="StoneGround(1)" type="Sprite2D" parent="BonusUI/Stone" index="4" unique_id=920347220]
+position = Vector2(728, 174)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_v6ha0")
+
+[node name="StoneGround(2)" type="Sprite2D" parent="BonusUI/Stone" index="5" unique_id=809359368]
+position = Vector2(600, 264)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_gmpev")
+
+[node name="StoneGround(3)" type="Sprite2D" parent="BonusUI/Stone" index="6" unique_id=1278168876]
+position = Vector2(448, 401)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_mkypq")
+
+[node name="StoneGround(4)" type="Sprite2D" parent="BonusUI/Stone" index="7" unique_id=1842586453]
+position = Vector2(1000, 328)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_ndtll")
+
+[node name="Tree" type="Node2D" parent="BonusUI" index="2" unique_id=2038004330]
+
+[node name="Tree(1)" type="Sprite2D" parent="BonusUI/Tree" index="0" unique_id=502685930]
+position = Vector2(752, 408)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_7h2jl")
+
+[node name="Tree(2)" type="Sprite2D" parent="BonusUI/Tree" index="1" unique_id=1986950488]
+position = Vector2(750, 285)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("13_mqh5v")
+
+[node name="Tree(1)2" type="Sprite2D" parent="BonusUI/Tree" index="2" unique_id=356921007]
+position = Vector2(992, 488.00003)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_7h2jl")
+
+[node name="Tree(2)2" type="Sprite2D" parent="BonusUI/Tree" index="3" unique_id=317953971]
+position = Vector2(896, 314)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("13_mqh5v")
+
+[node name="Tree(1)3" type="Sprite2D" parent="BonusUI/Tree" index="4" unique_id=122619715]
+position = Vector2(504, 144.00003)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_7h2jl")
+
+[node name="Tree(2)3" type="Sprite2D" parent="BonusUI/Tree" index="5" unique_id=1625526827]
+position = Vector2(496, 312)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("13_mqh5v")
+
+[node name="Tree(1)4" type="Sprite2D" parent="BonusUI/Tree" index="6" unique_id=1365958846]
+position = Vector2(602.4, 431.85)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_7h2jl")
+
+[node name="Tree(2)4" type="Sprite2D" parent="BonusUI/Tree" index="7" unique_id=1744738647]
+position = Vector2(600.4, 308.85)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("13_mqh5v")
+
+[node name="EnemyPath" parent="." index="2" unique_id=2078967344]
+curve = SubResource("Curve2D_dnkej")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SubWaveData" format=3 uid="uid://d2nbqhmfg36cc"]
+
+[ext_resource type="Resource" uid="uid://bs1w8s2wdk4wd" path="res://resources/data/enemies/ufo_scout.tres" id="1_f0mmr"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="2_rlqqy"]
+
+[resource]
+script = ExtResource("2_rlqqy")
+enemy_data = ExtResource("1_f0mmr")
+enemy_count = 1
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"

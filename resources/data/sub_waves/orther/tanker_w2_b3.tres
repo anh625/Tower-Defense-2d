@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubWaveData" format=3 uid="uid://gba227s0mfcm"]
+
+[ext_resource type="Resource" uid="uid://dagm8b5dsyfj7" path="res://resources/data/enemies/ufo_tanker.tres" id="1_nulc6"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="2_cvope"]
+
+[resource]
+script = ExtResource("2_cvope")
+enemy_data = ExtResource("1_nulc6")
+enemy_count = 1
+delay_after_subwave = 0.3
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"

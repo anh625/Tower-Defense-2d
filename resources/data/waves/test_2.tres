@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://dccidbr5ml6oc"]
+
+[ext_resource type="Script" uid="uid://t327orvwtonh" path="res://scripts/custom_resources/wave_data.gd" id="1_qf5ff"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="2_w0ynb"]
+[ext_resource type="Resource" uid="uid://bs7s1yjp0hj8s" path="res://resources/data/enemies/ufo_drone.tres" id="3_42t45"]
+[ext_resource type="Resource" uid="uid://dtk3yi8wnkxa1" path="res://resources/data/enemies/ufo_soldier.tres" id="4_cepyf"]
+
+[sub_resource type="Resource" id="Resource_ayadm"]
+script = ExtResource("2_w0ynb")
+enemy_data = ExtResource("3_42t45")
+enemy_count = 10
+delay_after_subwave = 1.0
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[sub_resource type="Resource" id="Resource_t7bl7"]
+script = ExtResource("2_w0ynb")
+enemy_data = ExtResource("4_cepyf")
+enemy_count = 4
+spawn_interval = 1.4
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[resource]
+script = ExtResource("1_qf5ff")
+sub_waves = Array[ExtResource("2_w0ynb")]([SubResource("Resource_ayadm"), SubResource("Resource_t7bl7")])
+metadata/_custom_type_script = "uid://t327orvwtonh"

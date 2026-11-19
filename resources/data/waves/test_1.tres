@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://b8sm26jwwkikl"]
+
+[ext_resource type="Script" uid="uid://t327orvwtonh" path="res://scripts/custom_resources/wave_data.gd" id="1_475bn"]
+[ext_resource type="Script" uid="uid://cg5qc0k6ax4ft" path="res://scripts/custom_resources/sub_wave_data.gd" id="2_1txus"]
+[ext_resource type="Resource" uid="uid://bs1w8s2wdk4wd" path="res://resources/data/enemies/ufo_scout.tres" id="3_mrk7o"]
+
+[sub_resource type="Resource" id="Resource_7wjjj"]
+script = ExtResource("2_1txus")
+enemy_data = ExtResource("3_mrk7o")
+enemy_count = 8
+spawn_interval = 1.2
+metadata/_custom_type_script = "uid://cg5qc0k6ax4ft"
+
+[resource]
+script = ExtResource("1_475bn")
+wave_index = 2
+sub_waves = Array[ExtResource("2_1txus")]([SubResource("Resource_7wjjj")])
+metadata/_custom_type_script = "uid://t327orvwtonh"

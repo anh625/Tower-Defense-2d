@@ -23,3 +23,49 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=106648771]
 position = Vector2(1.2382236, -9.770712)
 shape = SubResource("CapsuleShape2D_46nju")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=816971558]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -90.0
+offset_right = 40.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=726165067]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="HitShieldLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1665494204]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.7471122, 0.74711215, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HitArmorLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1523231361]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75122154, 0.23449603, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HpEnemy" type="Label" parent="VBoxContainer" unique_id=966078084]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.27980477, 0.019765327, 1)
+theme_override_font_sizes/font_size = 25
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1

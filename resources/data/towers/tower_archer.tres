@@ -11,8 +11,11 @@ script = ExtResource("1_fsnqk")
 tower_id = "tower_archer"
 tower_name = "Tower Archer"
 sprites = Array[Texture2D]([ExtResource("2_0y3hk"), ExtResource("3_ktobr"), ExtResource("4_xu7vu")])
-base_damage = Array[int]([15, 20, 24])
-attack_range = Array[float]([320.0, 417.0, 488.0])
-attack_speed = Array[float]([1.4, 2.3, 2.6])
+base_damage = Array[float]([10.0, 8.0, 6.0])
+attack_range = Array[float]([250.0, 290.0, 320.0])
+attack_speed = Array[float]([2.0, 4.0, 5.0])
+upgrade_cost = Array[int]([90, 180])
 projectile_scene = ExtResource("1_ktobr")
+description = Array[String](["Đặc tính: Bắn đơn tốc độ cao", "Kỹ năng: 25% Chí mạng (x2 sát thương)", "Kỹ năng: Bắn Kép (2 tên) | 35% Chí mạng
+Gắn debuff phá giáp"])
 metadata/_custom_type_script = "uid://cf8dlb05wx22d"

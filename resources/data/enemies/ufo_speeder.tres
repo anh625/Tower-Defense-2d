@@ -1,16 +1,19 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bv162glh43yom"]
 
 [ext_resource type="Script" uid="uid://bi3inxdbbfsvx" path="res://scripts/custom_resources/enemy_data.gd" id="1_kbo55"]
-[ext_resource type="Texture2D" uid="uid://dodpqdnaexfdh" path="res://assets/Sprites/UFO/UFO(4).png" id="2_oggn0"]
+[ext_resource type="Texture2D" uid="uid://ca82jngvqebeo" path="res://assets/Sprites/UFO/UFO(2).png" id="2_oggn0"]
 
 [resource]
 script = ExtResource("1_kbo55")
 enemy_id = "ufo_speeder"
 enemy_name = "UFO Speeder"
 sprite_texture = ExtResource("2_oggn0")
-max_hp = 130
+max_hp = 90
 armor = 1
-move_speed = 220.0
-reward_gold = 20
-base_damage = 2
+move_speed = 100.0
+reward_gold = 30
+base_damage = 3
+slow_immunity = true
+has_hit_shield_skill = true
+hit_shield = 5
 metadata/_custom_type_script = "uid://bi3inxdbbfsvx"
